@@ -395,8 +395,6 @@ def main():
         "Classical A*",
         "Paper Learned A*",
         "Paper Learned GBFS",
-        "Fixed 50/50 Hybrid A*",
-        "Fixed 50/50 Hybrid GBFS",
         "Confidence-Aware Hybrid A* (Ours)",
         "Confidence-Aware Hybrid GBFS (Ours)"
     ]
@@ -466,43 +464,7 @@ def main():
             device=device, num_mc_samples=5, dropout_p=0.10, lambda_min=0.20, scale_constant_C=50.0, dim=10
         )
 
-        # [4] Fixed 50/50 Hybrid A*
-        fa_sol, fa_exp, fa_cost, fa_plan, fa_time = run_fixed_hybrid_astar(
-            state, box_targets, hybrid_h, fixed_lambda=0.50, max_time=args.timeout, max_expansions=args.max_exp, dim=10
-        )
-        fa_ver = verify_solution_plan(state, fa_plan, box_targets, 10) if fa_sol else False
-        if fa_sol and fa_ver:
-            summary_data["Fixed 50/50 Hybrid A*"]["sol"] += 1
-            summary_data["Fixed 50/50 Hybrid A*"]["verified"] += 1
-            summary_data["Fixed 50/50 Hybrid A*"]["exp"].append(fa_exp)
-            summary_data["Fixed 50/50 Hybrid A*"]["cost"].append(fa_cost)
-            summary_data["Fixed 50/50 Hybrid A*"]["time"].append(fa_time)
-        csv_writer.writerow([map_idx, "Fixed 50/50 Hybrid A*", fa_sol, fa_exp, fa_cost, f"{fa_time:.4f}", "0.50", "0.00", len(fa_plan), fa_ver])
-        print(f"  [4] Fixed 50/50 Hybrid A*  : {'SOLVED ('+str(fa_exp)+' exp, '+str(round(fa_cost,1))+' cost)' if fa_sol else 'TIMEOUT'} in {fa_time*1000:6.1f}ms", flush=True)
-
-        # Reset trackers
-        hybrid_h.classical_tracker.reset()
-        for t in hybrid_h.learned_trackers: t.reset()
-
-        # [5] Fixed 50/50 Hybrid GBFS
-        fg_sol, fg_exp, fg_cost, fg_plan, fg_time = run_fixed_hybrid_gbfs(
-            state, box_targets, hybrid_h, fixed_lambda=0.50, max_time=args.timeout, max_expansions=args.max_exp, dim=10
-        )
-        fg_ver = verify_solution_plan(state, fg_plan, box_targets, 10) if fg_sol else False
-        if fg_sol and fg_ver:
-            summary_data["Fixed 50/50 Hybrid GBFS"]["sol"] += 1
-            summary_data["Fixed 50/50 Hybrid GBFS"]["verified"] += 1
-            summary_data["Fixed 50/50 Hybrid GBFS"]["exp"].append(fg_exp)
-            summary_data["Fixed 50/50 Hybrid GBFS"]["cost"].append(fg_cost)
-            summary_data["Fixed 50/50 Hybrid GBFS"]["time"].append(fg_time)
-        csv_writer.writerow([map_idx, "Fixed 50/50 Hybrid GBFS", fg_sol, fg_exp, fg_cost, f"{fg_time:.4f}", "0.50", "0.00", len(fg_plan), fg_ver])
-        print(f"  [5] Fixed 50/50 Hybrid GBFS: {'SOLVED ('+str(fg_exp)+' exp, '+str(round(fg_cost,1))+' cost)' if fg_sol else 'TIMEOUT'} in {fg_time*1000:6.1f}ms", flush=True)
-
-        # Reset trackers for our dynamic method
-        hybrid_h.classical_tracker.reset()
-        for t in hybrid_h.learned_trackers: t.reset()
-
-        # [6] Confidence-Aware Hybrid A* (Ours)
+        # [4] Confidence-Aware Hybrid A* (Ours)
         ca_sol, ca_exp, ca_cost, ca_plan, ca_time, ca_stats = run_confidence_aware_astar(
             state, box_targets, hybrid_h, max_expansions=args.max_exp, max_time=args.timeout, dim=10
         )
@@ -520,13 +482,13 @@ def main():
             f"{ca_stats['mean_lambda']:.4f}", f"{ca_stats['mean_variance']:.4f}", len(ca_plan), ca_ver
         ])
         ca_lbl = f"lambda={ca_stats['mean_lambda']:.2f}" if ca_sol else "timed out"
-        print(f"  [6] Confidence-Aware A*    : {'SOLVED ('+str(ca_exp)+' exp, '+str(round(ca_cost,1))+' cost, '+ca_lbl+')' if ca_sol else 'TIMEOUT'} in {ca_time*1000:6.1f}ms", flush=True)
+        print(f"  [4] Confidence-Aware A*    : {'SOLVED ('+str(ca_exp)+' exp, '+str(round(ca_cost,1))+' cost, '+ca_lbl+')' if ca_sol else 'TIMEOUT'} in {ca_time*1000:6.1f}ms", flush=True)
 
         # Reset trackers for our dynamic GBFS method
         hybrid_h.classical_tracker.reset()
         for t in hybrid_h.learned_trackers: t.reset()
 
-        # [7] Confidence-Aware Hybrid GBFS (Ours)
+        # [5] Confidence-Aware Hybrid GBFS (Ours)
         cg_sol, cg_exp, cg_cost, cg_plan, cg_time, cg_stats = run_confidence_aware_gbfs(
             state, box_targets, hybrid_h, max_expansions=args.max_exp, max_time=args.timeout, dim=10
         )
@@ -545,7 +507,7 @@ def main():
         ])
         csv_file.flush()
         cg_lbl = f"lambda={cg_stats['mean_lambda']:.2f}" if cg_sol else "timed out"
-        print(f"  [7] Confidence-Aware GBFS  : {'SOLVED ('+str(cg_exp)+' exp, '+str(round(cg_cost,1))+' cost, '+cg_lbl+')' if cg_sol else 'TIMEOUT'} in {cg_time*1000:6.1f}ms", flush=True)
+        print(f"  [5] Confidence-Aware GBFS  : {'SOLVED ('+str(cg_exp)+' exp, '+str(round(cg_cost,1))+' cost, '+cg_lbl+')' if cg_sol else 'TIMEOUT'} in {cg_time*1000:6.1f}ms", flush=True)
 
         # Check periodic statistic logging requirement: every N runs
         if map_idx % args.log_interval == 0:
