@@ -1,0 +1,29 @@
+# Secrets and Private Credentials (NEVER COMMIT)
+kaggle.json
+*.pem
+*.key
+.env
+
+# Python Bytecode and Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment & IDEs
+.venv/
+env/
+venv/
+ENV/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Task logs and temporary artifacts
+*.log
+*.tmp
+.system_generated/
+
+# Large Checkpoint Binaries (optional to track via Git LFS if needed)
+# *.pt
