@@ -65,10 +65,10 @@ class SokobanEnv:
         
         target_set = set(box_targets)
         directions = [
-            (1, 0, 6, 2),   # Down: (dr, dc, move_act, push_act)
-            (-1, 0, 5, 1),  # Up
-            (0, 1, 4, 4),   # Right
-            (0, -1, 3, 3)   # Left
+            (1, 0, 6, 2),   # Down: (dr, dc, move_act=6, push_act=2)
+            (-1, 0, 5, 1),  # Up:   (dr, dc, move_act=5, push_act=1)
+            (0, 1, 8, 4),   # Right:(dr, dc, move_act=8, push_act=4)
+            (0, -1, 7, 3)   # Left: (dr, dc, move_act=7, push_act=3)
         ]
         
         next_states = []

@@ -102,13 +102,21 @@ class ConfidenceAwareMCHeuristic:
         self.goal_tensor_single = torch.from_numpy(goal_np).unsqueeze(0).to(device)  # (1, 5, H, W)
         self.goal_tensor_batch = self.goal_tensor_single.repeat(num_mc_samples, 1, 1, 1)  # (M, 5, H, W)
 
-    def _forward_mc_dropout(self, state_tensor_single: torch.Tensor) -> List[float]:
+    def _forward_mc_dropout_batch(self, states_tensor: torch.Tensor) -> List[List[float]]:
         """
-        Executes M stochastic forward passes in a single batched parallel execution.
+        Executes M stochastic forward passes for K candidate states in a single parallel tensor batch.
+        states_tensor: shape (K, 5, H, W)
+        Returns: list of K lists, each containing M float predictions.
         """
-        # Batch M copies of the single state
-        state_batch = state_tensor_single.repeat(self.num_mc_samples, 1, 1, 1)  # (M, 5, H, W)
-        inp = torch.cat([state_batch, self.goal_tensor_batch], dim=1)           # (M, 10, H, W)
+        K = states_tensor.shape[0]
+        if K == 0:
+            return []
+            
+        # Repeat each candidate state M times: (K*M, 5, H, W)
+        state_batch = torch.repeat_interleave(states_tensor, self.num_mc_samples, dim=0)
+        # Repeat single goal tensor K*M times: (K*M, 5, H, W)
+        goal_batch = self.goal_tensor_single.repeat(K * self.num_mc_samples, 1, 1, 1)
+        inp = torch.cat([state_batch, goal_batch], dim=1)  # (K*M, 10, H, W)
         
         # Conv backbone
         x = F.relu(self.model.conv1(inp))
@@ -140,54 +148,78 @@ class ConfidenceAwareMCHeuristic:
         att18 = torch.cat([att18, self.model.pos4(s), inp], dim=1)
         
         # Dense Head with latent dropout
-        f2 = self.model.gap(att18).flatten(1)  # (M, 250)
+        f2 = self.model.gap(att18).flatten(1)  # (K*M, 250)
         d2 = F.relu(self.model.fc1(f2))
         d2 = F.dropout(d2, p=self.dropout_p, training=True)
         
-        out = self.model.fc2(d2).squeeze(-1)  # (M,)
+        out = self.model.fc2(d2).view(K, self.num_mc_samples)  # (K, M)
         return out.cpu().tolist()
 
-    def evaluate(self, state: np.ndarray) -> HeuristicEvaluation:
-        # Check goal condition
-        if SokobanEnv.is_goal(state, self.box_targets):
-            return HeuristicEvaluation(h_blend=0.0, p_blend=0.0, mean_p=0.0, p_class=0.0, variance=0.0, lambda_conf=1.0)
-
-        # 1. Classical Heuristic & Percentile
-        h_class_raw = manhattan_distance_heuristic(state, self.box_targets)
-        p_class = self.classical_tracker.get_percentile_and_insert(h_class_raw)
+    def evaluate_batch(self, states: List[np.ndarray], fixed_lambda: Optional[float] = None) -> List[HeuristicEvaluation]:
+        """
+        Batched evaluation of candidate child states.
+        Combines classical Manhattan percentile tracking and parallel GPU MC dropout.
+        If fixed_lambda is provided, uses fixed_lambda instead of dynamic rank variance gating.
+        """
+        if not states:
+            return []
+            
+        results = [None] * len(states)
+        active_indices = []
+        active_states = []
+        active_p_class = []
         
-        # 2. Neural MC Dropout (M samples)
-        s_np = author_state_to_tensor(state, self.box_targets, self.dim)
+        for idx, s in enumerate(states):
+            if SokobanEnv.is_goal(s, self.box_targets):
+                results[idx] = HeuristicEvaluation(h_blend=0.0, p_blend=0.0, mean_p=0.0, p_class=0.0, variance=0.0, lambda_conf=1.0)
+            else:
+                active_indices.append(idx)
+                active_states.append(s)
+                h_class_raw = manhattan_distance_heuristic(s, self.box_targets)
+                p_class = self.classical_tracker.get_percentile_and_insert(h_class_raw)
+                active_p_class.append(p_class)
+                
+        if not active_indices:
+            return results
+            
+        # Parallel GPU tensor forward pass
+        tensors = [author_state_to_tensor(s, self.box_targets, self.dim) for s in active_states]
+        batch_np = np.stack(tensors)
         with torch.no_grad():
-            s_tensor = torch.from_numpy(s_np).unsqueeze(0).to(self.device)
-            mc_outputs = self._forward_mc_dropout(s_tensor)  # M raw values
+            batch_tensor = torch.from_numpy(batch_np).to(self.device)
+            mc_outputs_grid = self._forward_mc_dropout_batch(batch_tensor)  # (K_active, M)
+            
+        for i, (orig_idx, p_class) in enumerate(zip(active_indices, active_p_class)):
+            mc_vals = mc_outputs_grid[i]
+            mc_percentiles = [
+                self.learned_trackers[m].get_percentile_and_insert(mc_vals[m])
+                for m in range(self.num_mc_samples)
+            ]
+            mean_p = float(np.mean(mc_percentiles))
+            variance = float(np.var(mc_percentiles))
+            
+            if fixed_lambda is not None:
+                lambda_conf = fixed_lambda
+            else:
+                lambda_raw = max(0.0, 1.0 - 4.0 * variance)
+                lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
+                
+            p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
+            h_blend = p_blend * self.C
+            
+            results[orig_idx] = HeuristicEvaluation(
+                h_blend=h_blend,
+                p_blend=p_blend,
+                mean_p=mean_p,
+                p_class=p_class,
+                variance=variance,
+                lambda_conf=lambda_conf
+            )
+            
+        return results
 
-        # 3. Percentiles across M trackers
-        mc_percentiles = [
-            self.learned_trackers[m].get_percentile_and_insert(mc_outputs[m])
-            for m in range(self.num_mc_samples)
-        ]
-        
-        # 4. Mean & Rank Variance (Eq. 3 & 4)
-        mean_p = float(np.mean(mc_percentiles))
-        variance = float(np.var(mc_percentiles))  # in [0, 0.25]
-        
-        # 5. Confidence Gating (Eq. 5 & 6)
-        lambda_raw = max(0.0, 1.0 - 4.0 * variance)
-        lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw  # in [lambda_min, 1.0]
-        
-        # 6. Rank-Space Convex Blend (Eq. 7 & 8)
-        p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
-        h_blend = p_blend * self.C
-        
-        return HeuristicEvaluation(
-            h_blend=h_blend,
-            p_blend=p_blend,
-            mean_p=mean_p,
-            p_class=p_class,
-            variance=variance,
-            lambda_conf=lambda_conf
-        )
+    def evaluate(self, state: np.ndarray, fixed_lambda: Optional[float] = None) -> HeuristicEvaluation:
+        return self.evaluate_batch([state], fixed_lambda=fixed_lambda)[0]
 
 
 class AdaptiveSearchNode:
@@ -208,12 +240,12 @@ def run_confidence_aware_astar(
     init_state: np.ndarray,
     box_targets: List[Tuple[int, int]],
     hybrid_heuristic: ConfidenceAwareMCHeuristic,
-    max_expansions: int = 10000,
-    max_time: float = 10.0,
+    max_expansions: int = 15000,
+    max_time: float = 600.0,
     dim: int = 10
 ) -> Tuple[bool, int, float, List[int], float, Dict]:
     """
-    Confidence-Aware A* Search using Rank-Blended Heuristic.
+    Confidence-Aware A* Search using Rank-Blended Heuristic with Neighbor Batching.
     """
     start_time = time.time()
     
@@ -272,16 +304,20 @@ def run_confidence_aware_astar(
             return True, expansions, current.g, actions, elapsed, stats
 
         next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
+        candidates = []
         for n_state, act, cost in zip(next_states, act_nos, costs):
             n_key = SokobanEnv.state_to_key(n_state)
             new_g = current.g + cost
-            
-            if n_key in closed_dict:
+            if n_key in closed_dict and closed_dict[n_key].g <= new_g:
                 continue
-                
-            if n_key not in open_dict or new_g < open_dict[n_key]:
+            if n_key in open_dict and open_dict[n_key] <= new_g:
+                continue
+            candidates.append((n_state, n_key, act, new_g))
+            
+        if candidates:
+            evals = hybrid_heuristic.evaluate_batch([c[0] for c in candidates])
+            for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
                 open_dict[n_key] = new_g
-                h_eval = hybrid_heuristic.evaluate(n_state)
                 new_f = new_g + h_eval.h_blend
                 child = AdaptiveSearchNode(
                     n_state, g=new_g, h=h_eval.h_blend, f=new_f,
@@ -297,3 +333,253 @@ def run_confidence_aware_astar(
         "mean_variance": float(np.mean(var_history)) if var_history else 0.0
     }
     return False, expansions, float("inf"), [], elapsed, stats
+
+
+def run_confidence_aware_gbfs(
+    init_state: np.ndarray,
+    box_targets: List[Tuple[int, int]],
+    hybrid_heuristic: ConfidenceAwareMCHeuristic,
+    max_expansions: int = 15000,
+    max_time: float = 600.0,
+    dim: int = 10
+) -> Tuple[bool, int, float, List[int], float, Dict]:
+    """
+    Confidence-Aware GBFS Search using Pure Rank-Blended Heuristic (No cost scaling constant needed).
+    Priority: f(s) = p_blend(s) in [0, 1].
+    Secondary tie-breaker: p_class(s).
+    """
+    start_time = time.time()
+    
+    init_eval = hybrid_heuristic.evaluate(init_state)
+    start_node = AdaptiveSearchNode(
+        init_state, g=0.0, h=init_eval.p_blend, f=init_eval.p_blend,
+        lambda_conf=init_eval.lambda_conf, variance=init_eval.variance
+    )
+    
+    open_heap = []
+    # Min-heap key: (f=p_blend, secondary=p_class, counter, node)
+    heapq.heappush(open_heap, (start_node.f, init_eval.p_class, 0, start_node))
+    
+    open_dict = {start_node.key: start_node.g}
+    closed_dict = {}
+    
+    counter = 0
+    expansions = 0
+    
+    lambda_history = []
+    var_history = []
+
+    while open_heap:
+        if (time.time() - start_time) > max_time or expansions >= max_expansions:
+            elapsed = time.time() - start_time
+            stats = {
+                "mean_lambda": float(np.mean(lambda_history)) if lambda_history else 0.0,
+                "mean_variance": float(np.mean(var_history)) if var_history else 0.0
+            }
+            return False, expansions, float("inf"), [], elapsed, stats
+            
+        _, _, _, current = heapq.heappop(open_heap)
+        if current.key in closed_dict:
+            continue
+        closed_dict[current.key] = current
+        expansions += 1
+        
+        lambda_history.append(current.lambda_conf)
+        var_history.append(current.variance)
+        
+        # Goal test
+        if SokobanEnv.is_goal(current.state, box_targets):
+            elapsed = time.time() - start_time
+            actions = []
+            curr = current
+            while curr.parent_key is not None:
+                actions.append(curr.action)
+                curr = closed_dict[curr.parent_key]
+            actions.reverse()
+            stats = {
+                "mean_lambda": float(np.mean(lambda_history)),
+                "mean_variance": float(np.mean(var_history)),
+                "min_lambda": float(np.min(lambda_history)),
+                "max_variance": float(np.max(var_history))
+            }
+            return True, expansions, current.g, actions, elapsed, stats
+
+        next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
+        candidates = []
+        for n_state, act, cost in zip(next_states, act_nos, costs):
+            n_key = SokobanEnv.state_to_key(n_state)
+            new_g = current.g + cost
+            if n_key in closed_dict and closed_dict[n_key].g <= new_g:
+                continue
+            if n_key in open_dict and open_dict[n_key] <= new_g:
+                continue
+            candidates.append((n_state, n_key, act, new_g))
+            
+        if candidates:
+            evals = hybrid_heuristic.evaluate_batch([c[0] for c in candidates])
+            for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
+                open_dict[n_key] = new_g
+                new_f = h_eval.p_blend  # Pure rank blend in [0, 1]
+                child = AdaptiveSearchNode(
+                    n_state, g=new_g, h=h_eval.p_blend, f=new_f,
+                    lambda_conf=h_eval.lambda_conf, variance=h_eval.variance,
+                    parent_key=current.key, action=act
+                )
+                counter += 1
+                heapq.heappush(open_heap, (child.f, h_eval.p_class, counter, child))
+
+    elapsed = time.time() - start_time
+    stats = {
+        "mean_lambda": float(np.mean(lambda_history)) if lambda_history else 0.0,
+        "mean_variance": float(np.mean(var_history)) if var_history else 0.0
+    }
+    return False, expansions, float("inf"), [], elapsed, stats
+
+
+def run_fixed_hybrid_astar(
+    init_state: np.ndarray,
+    box_targets: List[Tuple[int, int]],
+    hybrid_heuristic: ConfidenceAwareMCHeuristic,
+    fixed_lambda: float = 0.50,
+    max_expansions: int = 15000,
+    max_time: float = 600.0,
+    dim: int = 10
+) -> Tuple[bool, int, float, List[int], float]:
+    """
+    Fixed-Weight Hybrid A* Ablation with Batched Candidate Evaluation (Static lambda, e.g. 0.50).
+    """
+    start_time = time.time()
+    init_eval = hybrid_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
+    start_node = AdaptiveSearchNode(
+        init_state, g=0.0, h=init_eval.h_blend, f=init_eval.h_blend,
+        lambda_conf=fixed_lambda, variance=0.0
+    )
+    
+    open_heap = []
+    heapq.heappush(open_heap, (start_node.f, start_node.h, 0, start_node))
+    open_dict = {start_node.key: start_node.g}
+    closed_dict = {}
+    
+    counter = 0
+    expansions = 0
+    
+    while open_heap:
+        if (time.time() - start_time) > max_time or expansions >= max_expansions:
+            return False, expansions, float("inf"), [], time.time() - start_time
+            
+        _, _, _, current = heapq.heappop(open_heap)
+        if current.key in closed_dict:
+            continue
+        closed_dict[current.key] = current
+        expansions += 1
+        
+        if SokobanEnv.is_goal(current.state, box_targets):
+            elapsed = time.time() - start_time
+            actions = []
+            curr = current
+            while curr.parent_key is not None:
+                actions.append(curr.action)
+                curr = closed_dict[curr.parent_key]
+            actions.reverse()
+            return True, expansions, current.g, actions, elapsed
+
+        next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
+        candidates = []
+        for n_state, act, cost in zip(next_states, act_nos, costs):
+            n_key = SokobanEnv.state_to_key(n_state)
+            new_g = current.g + cost
+            if n_key in closed_dict and closed_dict[n_key].g <= new_g:
+                continue
+            if n_key in open_dict and open_dict[n_key] <= new_g:
+                continue
+            candidates.append((n_state, n_key, act, new_g))
+            
+        if candidates:
+            evals = hybrid_heuristic.evaluate_batch([c[0] for c in candidates], fixed_lambda=fixed_lambda)
+            for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
+                open_dict[n_key] = new_g
+                new_f = new_g + h_eval.h_blend
+                child = AdaptiveSearchNode(
+                    n_state, g=new_g, h=h_eval.h_blend, f=new_f,
+                    lambda_conf=fixed_lambda, variance=0.0,
+                    parent_key=current.key, action=act
+                )
+                counter += 1
+                heapq.heappush(open_heap, (child.f, child.h, counter, child))
+
+    return False, expansions, float("inf"), [], time.time() - start_time
+
+
+def run_fixed_hybrid_gbfs(
+    init_state: np.ndarray,
+    box_targets: List[Tuple[int, int]],
+    hybrid_heuristic: ConfidenceAwareMCHeuristic,
+    fixed_lambda: float = 0.50,
+    max_expansions: int = 15000,
+    max_time: float = 600.0,
+    dim: int = 10
+) -> Tuple[bool, int, float, List[int], float]:
+    """
+    Fixed-Weight Hybrid GBFS Ablation with Batched Candidate Evaluation (Static lambda, e.g. 0.50).
+    """
+    start_time = time.time()
+    init_eval = hybrid_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
+    start_node = AdaptiveSearchNode(
+        init_state, g=0.0, h=init_eval.p_blend, f=init_eval.p_blend,
+        lambda_conf=fixed_lambda, variance=0.0
+    )
+    
+    open_heap = []
+    heapq.heappush(open_heap, (start_node.f, init_eval.p_class, 0, start_node))
+    open_dict = {start_node.key: start_node.g}
+    closed_dict = {}
+    
+    counter = 0
+    expansions = 0
+    
+    while open_heap:
+        if (time.time() - start_time) > max_time or expansions >= max_expansions:
+            return False, expansions, float("inf"), [], time.time() - start_time
+            
+        _, _, _, current = heapq.heappop(open_heap)
+        if current.key in closed_dict:
+            continue
+        closed_dict[current.key] = current
+        expansions += 1
+        
+        if SokobanEnv.is_goal(current.state, box_targets):
+            elapsed = time.time() - start_time
+            actions = []
+            curr = current
+            while curr.parent_key is not None:
+                actions.append(curr.action)
+                curr = closed_dict[curr.parent_key]
+            actions.reverse()
+            return True, expansions, current.g, actions, elapsed
+
+        next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
+        candidates = []
+        for n_state, act, cost in zip(next_states, act_nos, costs):
+            n_key = SokobanEnv.state_to_key(n_state)
+            new_g = current.g + cost
+            if n_key in closed_dict and closed_dict[n_key].g <= new_g:
+                continue
+            if n_key in open_dict and open_dict[n_key] <= new_g:
+                continue
+            candidates.append((n_state, n_key, act, new_g))
+            
+        if candidates:
+            evals = hybrid_heuristic.evaluate_batch([c[0] for c in candidates], fixed_lambda=fixed_lambda)
+            for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
+                open_dict[n_key] = new_g
+                new_f = h_eval.p_blend
+                child = AdaptiveSearchNode(
+                    n_state, g=new_g, h=h_eval.p_blend, f=new_f,
+                    lambda_conf=fixed_lambda, variance=0.0,
+                    parent_key=current.key, action=act
+                )
+                counter += 1
+                heapq.heappush(open_heap, (child.f, h_eval.p_class, counter, child))
+
+    return False, expansions, float("inf"), [], time.time() - start_time
+
