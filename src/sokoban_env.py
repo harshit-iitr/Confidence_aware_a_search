@@ -120,3 +120,18 @@ class SokobanEnv:
     @staticmethod
     def state_to_key(state: np.ndarray) -> bytes:
         return state.tobytes()
+
+    @staticmethod
+    def verify_solution_plan(init_state: np.ndarray, actions: List[int], box_targets: List[Tuple[int, int]], dim: int = 10) -> bool:
+        """
+        Independently verifies that the sequence of actions is strictly legal
+        and reaches an authentic goal state by simulating each action step-by-step.
+        """
+        curr = init_state.copy()
+        for act in actions:
+            valid_nexts, valid_acts, _ = SokobanEnv.get_neighbors(curr, box_targets, dim)
+            if act not in valid_acts:
+                return False
+            act_idx = valid_acts.index(act)
+            curr = valid_nexts[act_idx]
+        return SokobanEnv.is_goal(curr, box_targets)

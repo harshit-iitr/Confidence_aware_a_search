@@ -129,10 +129,11 @@ def run_ensemble_astar(
     ensemble_heuristic: DeepEnsembleHeuristic,
     max_expansions: int = 15000,
     max_time: float = 600.0,
-    dim: int = 10
+    dim: int = 10,
+    fixed_lambda: Optional[float] = None
 ) -> Tuple[bool, int, float, List[int], float, Dict]:
     start_time = time.time()
-    init_eval = ensemble_heuristic.evaluate(init_state)
+    init_eval = ensemble_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
     start_node = AdaptiveSearchNode(
         init_state, g=0.0, h=init_eval.h_blend, f=init_eval.h_blend,
         lambda_conf=init_eval.lambda_conf, variance=init_eval.variance
@@ -193,7 +194,7 @@ def run_ensemble_astar(
             candidates.append((n_state, n_key, act, new_g))
             
         if candidates:
-            evals = ensemble_heuristic.evaluate_batch([c[0] for c in candidates])
+            evals = ensemble_heuristic.evaluate_batch([c[0] for c in candidates], fixed_lambda=fixed_lambda)
             for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
                 open_dict[n_key] = new_g
                 new_f = new_g + h_eval.h_blend
@@ -204,6 +205,96 @@ def run_ensemble_astar(
                 )
                 counter += 1
                 heapq.heappush(open_heap, (child.f, child.h, counter, child))
+
+    elapsed = time.time() - start_time
+    stats = {
+        "mean_lambda": float(np.mean(lambda_history)) if lambda_history else 0.0,
+        "mean_variance": float(np.mean(var_history)) if var_history else 0.0
+    }
+    return False, expansions, float("inf"), [], elapsed, stats
+
+
+def run_ensemble_gbfs(
+    init_state: np.ndarray,
+    box_targets: List[Tuple[int, int]],
+    ensemble_heuristic: DeepEnsembleHeuristic,
+    max_expansions: int = 15000,
+    max_time: float = 600.0,
+    dim: int = 10,
+    fixed_lambda: Optional[float] = None
+) -> Tuple[bool, int, float, List[int], float, Dict]:
+    start_time = time.time()
+    init_eval = ensemble_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
+    start_node = AdaptiveSearchNode(
+        init_state, g=0.0, h=init_eval.p_blend, f=init_eval.p_blend,
+        lambda_conf=init_eval.lambda_conf, variance=init_eval.variance
+    )
+    
+    open_heap = []
+    heapq.heappush(open_heap, (start_node.p_blend if hasattr(start_node, 'p_blend') else start_node.f, 0, start_node))
+    open_dict = {start_node.key: 0.0}
+    closed_dict = {}
+    
+    counter = 0
+    expansions = 0
+    lambda_history = []
+    var_history = []
+    
+    while open_heap:
+        if (time.time() - start_time) > max_time or expansions >= max_expansions:
+            elapsed = time.time() - start_time
+            stats = {
+                "mean_lambda": float(np.mean(lambda_history)) if lambda_history else 0.0,
+                "mean_variance": float(np.mean(var_history)) if var_history else 0.0
+            }
+            return False, expansions, float("inf"), [], elapsed, stats
+            
+        _, _, current = heapq.heappop(open_heap)
+        if current.key in closed_dict:
+            continue
+        closed_dict[current.key] = current
+        expansions += 1
+        lambda_history.append(current.lambda_conf)
+        var_history.append(current.variance)
+        
+        if SokobanEnv.is_goal(current.state, box_targets):
+            elapsed = time.time() - start_time
+            actions = []
+            curr = current
+            while curr.parent_key is not None:
+                actions.append(curr.action)
+                curr = closed_dict[curr.parent_key]
+            actions.reverse()
+            stats = {
+                "mean_lambda": float(np.mean(lambda_history)),
+                "mean_variance": float(np.mean(var_history)),
+                "min_lambda": float(np.min(lambda_history)),
+                "max_variance": float(np.max(var_history))
+            }
+            return True, expansions, current.g, actions, elapsed, stats
+
+        next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
+        candidates = []
+        for n_state, act, cost in zip(next_states, act_nos, costs):
+            n_key = SokobanEnv.state_to_key(n_state)
+            new_g = current.g + cost
+            if n_key in closed_dict and closed_dict[n_key].g <= new_g:
+                continue
+            if n_key in open_dict and open_dict[n_key] <= new_g:
+                continue
+            candidates.append((n_state, n_key, act, new_g))
+            
+        if candidates:
+            evals = ensemble_heuristic.evaluate_batch([c[0] for c in candidates], fixed_lambda=fixed_lambda)
+            for (n_state, n_key, act, new_g), h_eval in zip(candidates, evals):
+                open_dict[n_key] = new_g
+                child = AdaptiveSearchNode(
+                    n_state, g=new_g, h=h_eval.p_blend, f=h_eval.p_blend,
+                    lambda_conf=h_eval.lambda_conf, variance=h_eval.variance,
+                    parent_key=current.key, action=act
+                )
+                counter += 1
+                heapq.heappush(open_heap, (child.f, counter, child))
 
     elapsed = time.time() - start_time
     stats = {
