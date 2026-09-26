@@ -10,7 +10,9 @@ def run_suite(suite_name: str) -> int:
     cmd = [
         sys.executable, "-u",
         os.path.join("benchmarks", "run_ensemble_comparison_benchmark.py"),
-        "--suite", suite_name
+        "--suite", suite_name,
+        "--timeout", "360.0",
+        "--max_exp", "1000000"
     ]
     print("=" * 80, flush=True)
     print(f" STARTING BENCHMARK SUITE: {suite_name.upper()} SOKOBAN", flush=True)
