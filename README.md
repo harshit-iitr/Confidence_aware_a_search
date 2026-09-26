@@ -95,24 +95,46 @@ Comprehensive evaluation across **200 clean test instances** (matching Chrestien
 
 ## 4. 5-Box Out-of-Distribution (OOD) Generalization Benchmark
 
-To test robustness under domain shift and extreme branching complexity, the network trained exclusively on 3-box mazes is evaluated **zero-shot** on procedurally generated **5-box Sokoban mazes**.
+To test robustness under domain shift and extreme branching complexity, the network trained exclusively on 3-box mazes is evaluated **zero-shot** on procedurally generated **5-box Sokoban mazes** (100 instances, evaluated on Intel Arc GPU).
 
-- **Environment Engine:** `gym-sokoban` reverse-walk generator.
-- **Input Channels:** $(5, 10, 10)$ — Channel 4 has 5 active box coordinates zero-shot.
-- **Periodic Logging:** The experiment runner prints live aggregated statistics to stdout every 20 completed runs.
+| Algorithm | Solve Rate | Node Expansions (Mean) | Node Expansions (Median) | Mean Path Cost | Mean Time (s) | Plan Verified |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Classical A\* (Manhattan)** | 56.0% | 41,546.2 | 26,794.0 | 31.7 | 1.129s | 100% |
+| **Paper Learned A\* ($\mathcal{L}^*$)** | 71.0% | 2,833.8 | 1,384.0 | 33.5 | 12.719s | 100% |
+| **Paper Learned GBFS ($\mathcal{L}^*$)** | 70.0% | 2,516.1 | 346.0 | 45.9 | 9.465s | 100% |
+| **Confidence-Aware Hybrid A\* (Ours)** | **90.0%** | **1,970.5** | **567.5** | 38.3 | **10.411s** | **100%** |
+| **Confidence-Aware Hybrid GBFS (Ours)** | 66.0% | 1,957.4 | 305.5 | 44.5 | 11.276s | 100% |
 
-To run the 5-box benchmark:
+### Key OOD Findings:
+* **Solve Rate Advantage Under Bounded Budget:** Paper Learned A\* suffers from out-of-distribution deadlocks, dropping to 71.0%. **Confidence-Aware Hybrid A\* maintains a 90.0% solve rate (+19.0% absolute improvement, +26.8% relative gain)**, successfully recovering solutions on 20 out of 29 deadlocked maps.
+* **Node Reduction on Mutually Solved Mazes ($N=70$):** **64.12% fewer mean expansions** (981.8 vs 2,736.3) and **75.50% fewer median expansions** (331.5 vs 1,353.0) with an **88.6% head-to-head win rate** ($p = 3.73 \times 10^{-10}$ Wilcoxon).
+
+---
+
+## 5. Training Deep Ensembles (Bagging $M=5$)
+
+To evaluate multi-model epistemic uncertainty as an alternative to test-time MC Dropout:
+
 ```bash
-# 1. Generate 100 clean 5-box Sokoban mazes
-python benchmarks/generate_5box_dataset.py 100
+# Train Model Member #0 with 80% bootstrap subsampling (on GPU / T4 / RTX 4050)
+python tools/train_deep_ensemble.py --model_id 0 --bagging_ratio 0.80 --episodes 2500 --output_dir checkpoints/ensemble
 
-# 2. Run the 5-box benchmark with live periodic logging every 20 runs
-python benchmarks/run_5box_benchmark.py --num_mazes 100 --timeout 600.0 --log_interval 20
+# Train remaining ensemble members (Models 1 to 4)
+python tools/train_deep_ensemble.py --model_id 1 --bagging_ratio 0.80 --episodes 2500 --output_dir checkpoints/ensemble
+python tools/train_deep_ensemble.py --model_id 2 --bagging_ratio 0.80 --episodes 2500 --output_dir checkpoints/ensemble
+python tools/train_deep_ensemble.py --model_id 3 --bagging_ratio 0.80 --episodes 2500 --output_dir checkpoints/ensemble
+python tools/train_deep_ensemble.py --model_id 4 --bagging_ratio 0.80 --episodes 2500 --output_dir checkpoints/ensemble
+
+# Or train all 5 models sequentially
+python tools/train_deep_ensemble.py --num_models 5 --bagging_ratio 0.80 --episodes 2500
+
+# Benchmark the trained ensemble
+python benchmarks/run_ensemble_benchmark.py --checkpoint_dir checkpoints/ensemble --dataset data/sokoban_5box_test.txt
 ```
 
 ---
 
-## 5. Repository Structure
+## 6. Repository Structure
 
 ```
 Confidence_aware_a_search/
@@ -126,14 +148,17 @@ Confidence_aware_a_search/
 │   ├── classical_heuristics.py        <- Classical admissible heuristics (Manhattan distance)
 │   ├── torch_model.py                 <- 2D Attention-augmented heuristic model (ChrestienHeuristicNet)
 │   ├── confidence_aware_search.py     <- Test-time MC Dropout, PercentileTracker, Confidence-Aware A*
+│   ├── ensemble_search.py             <- Deep Ensemble confidence-aware heuristic search engine
 │   └── search_algorithms.py           <- Baseline A* and GBFS search implementations
 │
 ├── benchmarks/                        <- Rigorous benchmark execution scripts
 │   ├── run_rigorous_600s_benchmark.py <- 3-box in-distribution 600s benchmark runner
 │   ├── run_5box_benchmark.py          <- 5-box OOD benchmark runner with periodic logging (every 20 runs)
+│   ├── run_ensemble_benchmark.py      <- Deep Ensemble benchmark evaluation runner
 │   └── generate_5box_dataset.py       <- Procedural 5-box Sokoban maze generator (gym-sokoban)
 │
 ├── data/                              <- Benchmark problem datasets
+│   ├── sokoban_3box_train.txt         <- Official NeurIPS 2023 training set (32,016 mazes)
 │   ├── sokoban_3box_test.txt          <- Official NeurIPS 2023 test set (200 mazes)
 │   └── sokoban_5box_test.txt          <- Procedurally generated 5-box test set (100 mazes)
 │
@@ -151,12 +176,13 @@ Confidence_aware_a_search/
 │
 └── tools/                             <- Model conversion and training utilities
     ├── convert_finalSok3.py           <- Weight converter from author's TensorFlow checkpoint
-    └── train_baseline_lstar.py        <- Training pipeline for learned ranking heuristics
+    ├── train_deep_ensemble.py         <- Multi-seed 80% bootstrap bagging training pipeline
+    └── train_baseline_lstar.py        <- Training pipeline for single ranking heuristic
 ```
 
 ---
 
-## 6. Setup & Reproduction
+## 7. Setup & Reproduction
 
 ### Prerequisites
 - Python 3.10+ (tested on Python 3.14 on Windows 11)
