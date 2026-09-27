@@ -67,6 +67,7 @@ class AttentionAugmentation2D(nn.Module):
         # Scaled dot-product attention
         attn_scores = torch.matmul(q, k.transpose(-2, -1)) * self.scale  # (B, heads, N, N)
         attn_weights = F.softmax(attn_scores, dim=-1)
+        self.last_attn_weights = attn_weights.detach()
         
         out = torch.matmul(attn_weights, v)  # (B, heads, N, dv_per_head)
         out = out.permute(0, 1, 3, 2).contiguous().view(B, self.depth_v, H, W)  # (B, depth_v, H, W)

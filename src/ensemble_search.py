@@ -10,7 +10,7 @@ from typing import List, Tuple, Dict, Optional, NamedTuple
 
 from src.torch_model import ChrestienHeuristicNet
 from src.sokoban_env import SokobanEnv
-from src.classical_heuristics import manhattan_distance_heuristic
+from src.classical_heuristics import manhattan_distance_heuristic, deadlock_aware_heuristic, is_deadlock
 from src.confidence_aware_search import (
     PercentileTracker,
     HeuristicEvaluation,
@@ -24,6 +24,7 @@ class DeepEnsembleHeuristic:
     """
     Confidence-Aware Rank-Blended Heuristic using a Deep Ensemble of M trained networks.
     Estimates true multi-basin epistemic uncertainty via cross-model rank variance.
+    Supports both convex confidence gating and risk-averse (pessimistic UCB) search.
     """
     def __init__(
         self,
@@ -34,6 +35,9 @@ class DeepEnsembleHeuristic:
         lambda_min: float = 0.50,
         beta: float = 2.5,
         gating_mode: str = "std",
+        search_mode: str = "convex",
+        fallback_type: str = "manhattan",
+        kappa: float = 1.0,
         scale_constant_C: float = 50.0,
         dim: int = 10
     ):
@@ -44,6 +48,9 @@ class DeepEnsembleHeuristic:
         self.lambda_min = lambda_min
         self.beta = beta
         self.gating_mode = gating_mode
+        self.search_mode = search_mode
+        self.fallback_type = fallback_type
+        self.kappa = kappa
         self.C = scale_constant_C
         self.dim = dim
         
@@ -70,7 +77,10 @@ class DeepEnsembleHeuristic:
             else:
                 active_indices.append(idx)
                 active_states.append(s)
-                h_class_raw = manhattan_distance_heuristic(s, self.box_targets)
+                if self.fallback_type == "deadlock_aware":
+                    h_class_raw = deadlock_aware_heuristic(s, self.box_targets, self.dim)
+                else:
+                    h_class_raw = manhattan_distance_heuristic(s, self.box_targets)
                 p_class = self.classical_tracker.get_percentile_and_insert(h_class_raw)
                 active_p_class.append(p_class)
                 
@@ -102,19 +112,26 @@ class DeepEnsembleHeuristic:
             ]
             mean_p = float(np.mean(m_percentiles))
             variance = float(np.var(m_percentiles))
+            std_dev = float(np.sqrt(max(0.0, variance)))
             
-            if fixed_lambda is not None:
-                lambda_conf = fixed_lambda
+            if self.search_mode == "risk_averse":
+                # Risk-averse UCB heuristic: penalize states where ensemble has high variance
+                p_blend = min(1.0, mean_p + self.kappa * std_dev)
+                h_blend = p_blend * self.C
+                lambda_conf = 1.0
             else:
-                if self.gating_mode == "std":
-                    std_dev = float(np.sqrt(max(0.0, variance)))
-                    lambda_raw = max(0.0, 1.0 - self.beta * std_dev)
+                # Convex confidence-gated blending
+                if fixed_lambda is not None:
+                    lambda_conf = fixed_lambda
                 else:
-                    lambda_raw = max(0.0, 1.0 - self.beta * variance)
-                lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
-                
-            p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
-            h_blend = p_blend * self.C
+                    if self.gating_mode == "std":
+                        lambda_raw = max(0.0, 1.0 - self.beta * std_dev)
+                    else:
+                        lambda_raw = max(0.0, 1.0 - self.beta * variance)
+                    lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
+                    
+                p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
+                h_blend = p_blend * self.C
             
             results[orig_idx] = HeuristicEvaluation(
                 h_blend=h_blend,
@@ -138,7 +155,8 @@ def run_ensemble_astar(
     max_expansions: int = 15000,
     max_time: float = 600.0,
     dim: int = 10,
-    fixed_lambda: Optional[float] = None
+    fixed_lambda: Optional[float] = None,
+    prune_deadlocks: bool = False
 ) -> Tuple[bool, int, float, List[int], float, Dict]:
     start_time = time.time()
     init_eval = ensemble_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
@@ -193,6 +211,8 @@ def run_ensemble_astar(
         next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
         candidates = []
         for n_state, act, cost in zip(next_states, act_nos, costs):
+            if prune_deadlocks and is_deadlock(n_state, box_targets, dim):
+                continue
             n_key = SokobanEnv.state_to_key(n_state)
             new_g = current.g + cost
             if n_key in closed_dict and closed_dict[n_key].g <= new_g:
@@ -229,7 +249,8 @@ def run_ensemble_gbfs(
     max_expansions: int = 15000,
     max_time: float = 600.0,
     dim: int = 10,
-    fixed_lambda: Optional[float] = None
+    fixed_lambda: Optional[float] = None,
+    prune_deadlocks: bool = False
 ) -> Tuple[bool, int, float, List[int], float, Dict]:
     start_time = time.time()
     init_eval = ensemble_heuristic.evaluate(init_state, fixed_lambda=fixed_lambda)
@@ -284,6 +305,8 @@ def run_ensemble_gbfs(
         next_states, act_nos, costs = SokobanEnv.get_neighbors(current.state, box_targets, dim)
         candidates = []
         for n_state, act, cost in zip(next_states, act_nos, costs):
+            if prune_deadlocks and is_deadlock(n_state, box_targets, dim):
+                continue
             n_key = SokobanEnv.state_to_key(n_state)
             new_g = current.g + cost
             if n_key in closed_dict and closed_dict[n_key].g <= new_g:
