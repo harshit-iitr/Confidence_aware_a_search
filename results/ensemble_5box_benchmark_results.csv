@@ -1,0 +1,301 @@
+map_id,algorithm,solved,expansions,cost,time_sec,mean_lambda,mean_variance,plan_length,verified
+1,Single Scratch Model #0 (Ablation),True,171,21.0,1.5837,1.0,0.0,21,True
+1,Normal 5-Model Ensemble A* (Pure Mean),True,268,21.0,4.1427,1.0,0.008807194641089307,21,True
+1,Confidence-Aware 5-Model Ensemble A* (Ours),True,277,21.0,4.3991,0.9714,0.009,21,True
+2,Single Scratch Model #0 (Ablation),True,42985,55.0,124.6274,1.0,0.0,55,True
+2,Normal 5-Model Ensemble A* (Pure Mean),True,6779,59.0,100.4689,1.0,0.0032847881948195224,59,True
+2,Confidence-Aware 5-Model Ensemble A* (Ours),True,6404,59.0,94.5587,0.99,0.0031,59,True
+3,Single Scratch Model #0 (Ablation),True,198,24.0,0.6602,1.0,0.0,24,True
+3,Normal 5-Model Ensemble A* (Pure Mean),True,82,24.0,1.4449,1.0,0.005993331900805367,24,True
+3,Confidence-Aware 5-Model Ensemble A* (Ours),True,84,24.0,1.3767,0.9801,0.0062,24,True
+4,Single Scratch Model #0 (Ablation),True,541,24.0,1.726,1.0,0.0,24,True
+4,Normal 5-Model Ensemble A* (Pure Mean),True,419,34.0,6.3246,1.0,0.009662088074243017,34,True
+4,Confidence-Aware 5-Model Ensemble A* (Ours),True,441,34.0,7.0731,0.9667,0.0104,34,True
+5,Single Scratch Model #0 (Ablation),True,137,24.0,0.4504,1.0,0.0,24,True
+5,Normal 5-Model Ensemble A* (Pure Mean),True,73,29.0,1.1385,1.0,0.009840505102365253,29,True
+5,Confidence-Aware 5-Model Ensemble A* (Ours),True,83,29.0,1.3667,0.9528,0.0147,29,True
+6,Single Scratch Model #0 (Ablation),True,679,29.0,2.3154,1.0,0.0,29,True
+6,Normal 5-Model Ensemble A* (Pure Mean),True,141,29.0,2.1529,1.0,0.0065414254979513356,29,True
+6,Confidence-Aware 5-Model Ensemble A* (Ours),True,142,29.0,2.1978,0.9774,0.0071,29,True
+7,Single Scratch Model #0 (Ablation),True,1613,40.0,5.1068,1.0,0.0,40,True
+7,Normal 5-Model Ensemble A* (Pure Mean),True,174,44.0,2.8566,1.0,0.005596797773162744,44,True
+7,Confidence-Aware 5-Model Ensemble A* (Ours),True,175,44.0,2.644,0.9816,0.0058,44,True
+8,Single Scratch Model #0 (Ablation),False,127483,inf,360.0018,1.0,0.0,0,False
+8,Normal 5-Model Ensemble A* (Pure Mean),False,24314,inf,360.0141,1.0,0.003506891013320058,0,False
+8,Confidence-Aware 5-Model Ensemble A* (Ours),False,24488,inf,360.0066,0.989,0.0034,0,False
+9,Single Scratch Model #0 (Ablation),True,47,27.0,0.16,1.0,0.0,27,True
+9,Normal 5-Model Ensemble A* (Pure Mean),True,64,31.0,1.0953,1.0,0.0044688303475698445,31,True
+9,Confidence-Aware 5-Model Ensemble A* (Ours),True,68,31.0,1.1402,0.9839,0.005,31,True
+10,Single Scratch Model #0 (Ablation),True,1206,41.0,3.6822,1.0,0.0,41,True
+10,Normal 5-Model Ensemble A* (Pure Mean),True,1344,43.0,20.3946,1.0,0.007357073476544568,43,True
+10,Confidence-Aware 5-Model Ensemble A* (Ours),True,1364,43.0,21.0943,0.9767,0.0073,43,True
+11,Single Scratch Model #0 (Ablation),True,7346,45.0,23.2148,1.0,0.0,45,True
+11,Normal 5-Model Ensemble A* (Pure Mean),True,480,51.0,7.8489,1.0,0.0037805964542231446,51,True
+11,Confidence-Aware 5-Model Ensemble A* (Ours),True,490,51.0,8.5814,0.9872,0.004,51,True
+12,Single Scratch Model #0 (Ablation),True,31279,50.0,100.1735,1.0,0.0,50,True
+12,Normal 5-Model Ensemble A* (Pure Mean),True,2252,52.0,35.7154,1.0,0.0021851873891380836,52,True
+12,Confidence-Aware 5-Model Ensemble A* (Ours),True,2957,54.0,48.3133,0.9935,0.002,54,True
+13,Single Scratch Model #0 (Ablation),True,609,40.0,2.2613,1.0,0.0,40,True
+13,Normal 5-Model Ensemble A* (Pure Mean),True,747,40.0,11.5835,1.0,0.00860264543472455,40,True
+13,Confidence-Aware 5-Model Ensemble A* (Ours),True,763,40.0,11.4749,0.9717,0.0089,40,True
+14,Single Scratch Model #0 (Ablation),False,121769,inf,360.0013,1.0,0.0,0,False
+14,Normal 5-Model Ensemble A* (Pure Mean),True,14696,58.0,232.4776,1.0,0.0059999130908277,58,True
+14,Confidence-Aware 5-Model Ensemble A* (Ours),True,14941,58.0,236.0772,0.9809,0.006,58,True
+15,Single Scratch Model #0 (Ablation),True,4788,38.0,15.4787,1.0,0.0,38,True
+15,Normal 5-Model Ensemble A* (Pure Mean),True,343,46.0,5.2058,1.0,0.0029172151176684287,46,True
+15,Confidence-Aware 5-Model Ensemble A* (Ours),True,319,40.0,5.4667,0.9903,0.003,40,True
+16,Single Scratch Model #0 (Ablation),True,603,37.0,1.8123,1.0,0.0,37,True
+16,Normal 5-Model Ensemble A* (Pure Mean),True,456,37.0,6.959,1.0,0.005991825112110087,37,True
+16,Confidence-Aware 5-Model Ensemble A* (Ours),True,515,37.0,7.6676,0.9819,0.0056,37,True
+17,Single Scratch Model #0 (Ablation),False,133155,inf,360.0038,1.0,0.0,0,False
+17,Normal 5-Model Ensemble A* (Pure Mean),False,24838,inf,360.006,1.0,0.00459455578888128,0,False
+17,Confidence-Aware 5-Model Ensemble A* (Ours),False,24189,inf,360.0021,0.9861,0.0043,0,False
+18,Single Scratch Model #0 (Ablation),True,300,21.0,1.0139,1.0,0.0,21,True
+18,Normal 5-Model Ensemble A* (Pure Mean),True,161,37.0,2.5883,1.0,0.005908323664449808,37,True
+18,Confidence-Aware 5-Model Ensemble A* (Ours),True,165,37.0,2.5962,0.9804,0.0061,37,True
+19,Single Scratch Model #0 (Ablation),True,168,22.0,0.6139,1.0,0.0,22,True
+19,Normal 5-Model Ensemble A* (Pure Mean),True,67,22.0,1.2518,1.0,0.006818813100343325,22,True
+19,Confidence-Aware 5-Model Ensemble A* (Ours),True,67,22.0,1.2399,0.9785,0.0067,22,True
+20,Single Scratch Model #0 (Ablation),True,1436,38.0,4.3211,1.0,0.0,38,True
+20,Normal 5-Model Ensemble A* (Pure Mean),True,700,38.0,9.9096,1.0,0.009392728411471115,38,True
+20,Confidence-Aware 5-Model Ensemble A* (Ours),True,754,38.0,10.8376,0.9691,0.0097,38,True
+21,Single Scratch Model #0 (Ablation),True,2082,45.0,6.6558,1.0,0.0,45,True
+21,Normal 5-Model Ensemble A* (Pure Mean),True,1029,45.0,15.9475,1.0,0.003242926625695415,45,True
+21,Confidence-Aware 5-Model Ensemble A* (Ours),True,1020,55.0,15.9311,0.9888,0.0035,55,True
+22,Single Scratch Model #0 (Ablation),False,118670,inf,360.0003,1.0,0.0,0,False
+22,Normal 5-Model Ensemble A* (Pure Mean),True,6540,54.0,101.3672,1.0,0.0030716391197552328,54,True
+22,Confidence-Aware 5-Model Ensemble A* (Ours),True,8156,54.0,131.5883,0.9896,0.0032,54,True
+23,Single Scratch Model #0 (Ablation),True,543,24.0,1.7672,1.0,0.0,24,True
+23,Normal 5-Model Ensemble A* (Pure Mean),True,568,24.0,8.8556,1.0,0.01643303359088027,24,True
+23,Confidence-Aware 5-Model Ensemble A* (Ours),True,597,24.0,9.6821,0.9475,0.0164,24,True
+24,Single Scratch Model #0 (Ablation),True,5666,35.0,18.5905,1.0,0.0,35,True
+24,Normal 5-Model Ensemble A* (Pure Mean),True,220,37.0,3.5001,1.0,0.0046767550147559156,37,True
+24,Confidence-Aware 5-Model Ensemble A* (Ours),True,247,37.0,4.0319,0.984,0.005,37,True
+25,Single Scratch Model #0 (Ablation),True,79,20.0,0.3023,1.0,0.0,20,True
+25,Normal 5-Model Ensemble A* (Pure Mean),True,67,24.0,1.1644,1.0,0.014274379895935402,24,True
+25,Confidence-Aware 5-Model Ensemble A* (Ours),True,63,24.0,1.2422,0.953,0.0147,24,True
+26,Single Scratch Model #0 (Ablation),True,42455,56.0,128.7644,1.0,0.0,56,True
+26,Normal 5-Model Ensemble A* (Pure Mean),True,3108,52.0,48.4326,1.0,0.003115141444280148,52,True
+26,Confidence-Aware 5-Model Ensemble A* (Ours),True,1959,54.0,29.8787,0.99,0.0031,54,True
+27,Single Scratch Model #0 (Ablation),True,42909,50.0,131.3734,1.0,0.0,50,True
+27,Normal 5-Model Ensemble A* (Pure Mean),True,1416,56.0,22.7597,1.0,0.002891544893774207,56,True
+27,Confidence-Aware 5-Model Ensemble A* (Ours),True,3007,57.0,47.6944,0.9905,0.003,57,True
+28,Single Scratch Model #0 (Ablation),True,583,39.0,1.7852,1.0,0.0,39,True
+28,Normal 5-Model Ensemble A* (Pure Mean),True,160,39.0,2.4523,1.0,0.006741840392787119,39,True
+28,Confidence-Aware 5-Model Ensemble A* (Ours),True,163,39.0,2.7518,0.9785,0.0067,39,True
+29,Single Scratch Model #0 (Ablation),True,865,35.0,3.1149,1.0,0.0,35,True
+29,Normal 5-Model Ensemble A* (Pure Mean),True,392,39.0,6.4159,1.0,0.006019187368541533,39,True
+29,Confidence-Aware 5-Model Ensemble A* (Ours),True,389,39.0,6.6551,0.9803,0.0061,39,True
+30,Single Scratch Model #0 (Ablation),True,393,35.0,1.3354,1.0,0.0,35,True
+30,Normal 5-Model Ensemble A* (Pure Mean),True,166,35.0,2.5223,1.0,0.0033660893597825723,35,True
+30,Confidence-Aware 5-Model Ensemble A* (Ours),True,171,35.0,2.721,0.9887,0.0035,35,True
+31,Single Scratch Model #0 (Ablation),True,75,27.0,0.2591,1.0,0.0,27,True
+31,Normal 5-Model Ensemble A* (Pure Mean),True,61,27.0,1.0055,1.0,0.0030141725420272975,27,True
+31,Confidence-Aware 5-Model Ensemble A* (Ours),True,64,27.0,0.988,0.9904,0.003,27,True
+32,Single Scratch Model #0 (Ablation),False,124513,inf,360.001,1.0,0.0,0,False
+32,Normal 5-Model Ensemble A* (Pure Mean),False,23167,inf,360.0157,1.0,0.0029987956725374848,0,False
+32,Confidence-Aware 5-Model Ensemble A* (Ours),False,23447,inf,360.0122,0.9903,0.003,0,False
+33,Single Scratch Model #0 (Ablation),True,564,32.0,1.9038,1.0,0.0,32,True
+33,Normal 5-Model Ensemble A* (Pure Mean),True,918,32.0,14.8739,1.0,0.007488014605746623,32,True
+33,Confidence-Aware 5-Model Ensemble A* (Ours),True,957,32.0,15.5146,0.9757,0.0076,32,True
+34,Single Scratch Model #0 (Ablation),False,117184,inf,360.0001,1.0,0.0,0,False
+34,Normal 5-Model Ensemble A* (Pure Mean),True,7585,56.0,121.345,1.0,0.002729381151057541,56,True
+34,Confidence-Aware 5-Model Ensemble A* (Ours),True,7267,56.0,114.5086,0.9911,0.0028,56,True
+35,Single Scratch Model #0 (Ablation),True,12588,51.0,39.244,1.0,0.0,51,True
+35,Normal 5-Model Ensemble A* (Pure Mean),True,5575,59.0,84.2498,1.0,0.003969830778695068,59,True
+35,Confidence-Aware 5-Model Ensemble A* (Ours),True,5564,59.0,84.6443,0.9867,0.0041,59,True
+36,Single Scratch Model #0 (Ablation),True,104156,53.0,311.675,1.0,0.0,53,True
+36,Normal 5-Model Ensemble A* (Pure Mean),True,8476,58.0,136.0246,1.0,0.00256602622949311,58,True
+36,Confidence-Aware 5-Model Ensemble A* (Ours),True,8046,58.0,125.3699,0.9916,0.0026,58,True
+37,Single Scratch Model #0 (Ablation),True,15516,44.0,53.4019,1.0,0.0,44,True
+37,Normal 5-Model Ensemble A* (Pure Mean),True,1556,54.0,24.8753,1.0,0.0024644213147729326,54,True
+37,Confidence-Aware 5-Model Ensemble A* (Ours),True,1590,54.0,24.5897,0.992,0.0025,54,True
+38,Single Scratch Model #0 (Ablation),True,1315,33.0,4.4714,1.0,0.0,33,True
+38,Normal 5-Model Ensemble A* (Pure Mean),True,284,32.0,4.8335,1.0,0.004524834940829535,32,True
+38,Confidence-Aware 5-Model Ensemble A* (Ours),True,273,32.0,4.3838,0.9837,0.0051,32,True
+39,Single Scratch Model #0 (Ablation),True,19783,43.0,62.8199,1.0,0.0,43,True
+39,Normal 5-Model Ensemble A* (Pure Mean),True,2310,55.0,36.0814,1.0,0.004128366953591721,55,True
+39,Confidence-Aware 5-Model Ensemble A* (Ours),True,2430,55.0,38.9963,0.9868,0.0041,55,True
+40,Single Scratch Model #0 (Ablation),True,1001,30.0,3.3445,1.0,0.0,30,True
+40,Normal 5-Model Ensemble A* (Pure Mean),True,816,38.0,12.7553,1.0,0.0058964528746815025,38,True
+40,Confidence-Aware 5-Model Ensemble A* (Ours),True,776,36.0,12.3553,0.9814,0.0058,36,True
+41,Single Scratch Model #0 (Ablation),True,4291,40.0,15.1281,1.0,0.0,40,True
+41,Normal 5-Model Ensemble A* (Pure Mean),True,641,42.0,10.3932,1.0,0.0038750102928827553,42,True
+41,Confidence-Aware 5-Model Ensemble A* (Ours),True,549,42.0,8.6106,0.9879,0.0038,42,True
+42,Single Scratch Model #0 (Ablation),True,28161,50.0,85.5921,1.0,0.0,50,True
+42,Normal 5-Model Ensemble A* (Pure Mean),True,8594,52.0,220.6126,1.0,0.004210856412398094,52,True
+42,Confidence-Aware 5-Model Ensemble A* (Ours),True,8725,51.0,253.1274,0.9861,0.0043,51,True
+43,Single Scratch Model #0 (Ablation),True,5648,38.0,36.0201,1.0,0.0,38,True
+43,Normal 5-Model Ensemble A* (Pure Mean),True,682,44.0,20.1955,1.0,0.004236584408217203,44,True
+43,Confidence-Aware 5-Model Ensemble A* (Ours),True,792,44.0,24.4261,0.9855,0.0045,44,True
+44,Single Scratch Model #0 (Ablation),True,2555,43.0,21.1449,1.0,0.0,43,True
+44,Normal 5-Model Ensemble A* (Pure Mean),True,854,49.0,24.6327,1.0,0.00364241062935325,49,True
+44,Confidence-Aware 5-Model Ensemble A* (Ours),True,623,42.0,18.2369,0.9876,0.0039,42,True
+45,Single Scratch Model #0 (Ablation),True,368,41.0,2.1773,1.0,0.0,41,True
+45,Normal 5-Model Ensemble A* (Pure Mean),True,724,41.0,19.5658,1.0,0.006307657483618931,41,True
+45,Confidence-Aware 5-Model Ensemble A* (Ours),True,709,41.0,18.9702,0.9783,0.0068,41,True
+46,Single Scratch Model #0 (Ablation),True,7681,40.0,49.2158,1.0,0.0,40,True
+46,Normal 5-Model Ensemble A* (Pure Mean),True,492,44.0,14.7622,1.0,0.0023175410696465366,44,True
+46,Confidence-Aware 5-Model Ensemble A* (Ours),True,494,44.0,15.2186,0.9926,0.0023,44,True
+47,Single Scratch Model #0 (Ablation),True,1625,37.0,10.8513,1.0,0.0,37,True
+47,Normal 5-Model Ensemble A* (Pure Mean),True,543,49.0,16.6666,1.0,0.00438869554046341,49,True
+47,Confidence-Aware 5-Model Ensemble A* (Ours),True,549,49.0,16.7305,0.9859,0.0044,49,True
+48,Single Scratch Model #0 (Ablation),True,23233,50.0,130.5604,1.0,0.0,50,True
+48,Normal 5-Model Ensemble A* (Pure Mean),True,1496,50.0,44.3639,1.0,0.006781940170912334,50,True
+48,Confidence-Aware 5-Model Ensemble A* (Ours),True,1655,50.0,47.8225,0.9774,0.0071,50,True
+49,Single Scratch Model #0 (Ablation),True,25837,45.0,129.2065,1.0,0.0,45,True
+49,Normal 5-Model Ensemble A* (Pure Mean),True,1513,45.0,25.568,1.0,0.002906073300793263,45,True
+49,Confidence-Aware 5-Model Ensemble A* (Ours),True,1251,45.0,22.5541,0.9905,0.003,45,True
+50,Single Scratch Model #0 (Ablation),True,633,34.0,2.2244,1.0,0.0,34,True
+50,Normal 5-Model Ensemble A* (Pure Mean),True,125,35.0,2.0846,1.0,0.004427118171607966,35,True
+50,Confidence-Aware 5-Model Ensemble A* (Ours),True,136,34.0,2.1328,0.9862,0.0043,34,True
+51,Single Scratch Model #0 (Ablation),True,444,24.0,1.4897,1.0,0.0,24,True
+51,Normal 5-Model Ensemble A* (Pure Mean),True,253,38.0,4.1355,1.0,0.005604464935469708,38,True
+51,Confidence-Aware 5-Model Ensemble A* (Ours),True,250,38.0,3.9598,0.9796,0.0064,38,True
+52,Single Scratch Model #0 (Ablation),True,772,41.0,2.4118,1.0,0.0,41,True
+52,Normal 5-Model Ensemble A* (Pure Mean),True,1667,41.0,25.3522,1.0,0.0030962636542780707,41,True
+52,Confidence-Aware 5-Model Ensemble A* (Ours),True,1180,41.0,18.3379,0.9884,0.0036,41,True
+53,Single Scratch Model #0 (Ablation),True,71,22.0,0.264,1.0,0.0,22,True
+53,Normal 5-Model Ensemble A* (Pure Mean),True,63,24.0,1.0755,1.0,0.009627320814013657,24,True
+53,Confidence-Aware 5-Model Ensemble A* (Ours),True,63,24.0,1.1259,0.9692,0.0096,24,True
+54,Single Scratch Model #0 (Ablation),True,148,22.0,0.4844,1.0,0.0,22,True
+54,Normal 5-Model Ensemble A* (Pure Mean),True,86,22.0,1.3798,1.0,0.007081957647021046,22,True
+54,Confidence-Aware 5-Model Ensemble A* (Ours),True,126,22.0,2.0328,0.9759,0.0075,22,True
+55,Single Scratch Model #0 (Ablation),True,7155,58.0,20.0749,1.0,0.0,58,True
+55,Normal 5-Model Ensemble A* (Pure Mean),True,12310,62.0,169.8271,1.0,0.0034753977193398094,62,True
+55,Confidence-Aware 5-Model Ensemble A* (Ours),True,4588,58.0,67.4121,0.9886,0.0036,58,True
+56,Single Scratch Model #0 (Ablation),True,1572,46.0,5.2055,1.0,0.0,46,True
+56,Normal 5-Model Ensemble A* (Pure Mean),True,1882,48.0,28.8016,1.0,0.002285385031315502,48,True
+56,Confidence-Aware 5-Model Ensemble A* (Ours),True,1628,48.0,24.6936,0.9925,0.0024,48,True
+57,Single Scratch Model #0 (Ablation),True,8470,46.0,26.3744,1.0,0.0,46,True
+57,Normal 5-Model Ensemble A* (Pure Mean),True,3329,56.0,52.6827,1.0,0.004403746229252299,56,True
+57,Confidence-Aware 5-Model Ensemble A* (Ours),True,3317,56.0,51.2946,0.9855,0.0045,56,True
+58,Single Scratch Model #0 (Ablation),True,1728,52.0,5.8636,1.0,0.0,52,True
+58,Normal 5-Model Ensemble A* (Pure Mean),True,591,52.0,8.7317,1.0,0.0024348470341745867,52,True
+58,Confidence-Aware 5-Model Ensemble A* (Ours),True,609,52.0,8.9753,0.9923,0.0024,52,True
+59,Single Scratch Model #0 (Ablation),True,157,23.0,0.6106,1.0,0.0,23,True
+59,Normal 5-Model Ensemble A* (Pure Mean),True,79,27.0,1.2684,1.0,0.007176660695257931,27,True
+59,Confidence-Aware 5-Model Ensemble A* (Ours),True,86,27.0,1.5244,0.9758,0.0076,27,True
+60,Single Scratch Model #0 (Ablation),False,131453,inf,360.004,1.0,0.0,0,False
+60,Normal 5-Model Ensemble A* (Pure Mean),False,24454,inf,360.0009,1.0,0.003830682915882837,0,False
+60,Confidence-Aware 5-Model Ensemble A* (Ours),False,18610,inf,360.0014,0.9878,0.0038,0,False
+61,Single Scratch Model #0 (Ablation),True,202,34.0,0.8389,1.0,0.0,34,True
+61,Normal 5-Model Ensemble A* (Pure Mean),True,315,34.0,4.6575,1.0,0.0031077527736497615,34,True
+61,Confidence-Aware 5-Model Ensemble A* (Ours),True,324,34.0,4.9554,0.9892,0.0034,34,True
+62,Single Scratch Model #0 (Ablation),True,61588,50.0,183.9749,1.0,0.0,50,True
+62,Normal 5-Model Ensemble A* (Pure Mean),True,8385,50.0,133.6655,1.0,0.0036373816510422807,50,True
+62,Confidence-Aware 5-Model Ensemble A* (Ours),True,11734,50.0,183.6035,0.9878,0.0038,50,True
+63,Single Scratch Model #0 (Ablation),True,104,23.0,0.4124,1.0,0.0,23,True
+63,Normal 5-Model Ensemble A* (Pure Mean),True,59,23.0,1.0153,1.0,0.01078082593770585,23,True
+63,Confidence-Aware 5-Model Ensemble A* (Ours),True,60,23.0,1.1396,0.9607,0.0123,23,True
+64,Single Scratch Model #0 (Ablation),True,2328,33.0,8.064,1.0,0.0,33,True
+64,Normal 5-Model Ensemble A* (Pure Mean),True,1229,48.0,20.7958,1.0,0.0054786836672824045,48,True
+64,Confidence-Aware 5-Model Ensemble A* (Ours),True,1511,39.0,25.0436,0.9827,0.0054,39,True
+65,Single Scratch Model #0 (Ablation),True,75,22.0,0.2596,1.0,0.0,22,True
+65,Normal 5-Model Ensemble A* (Pure Mean),True,78,22.0,1.2203,1.0,0.003538865036232571,22,True
+65,Confidence-Aware 5-Model Ensemble A* (Ours),True,76,22.0,1.3262,0.9888,0.0035,22,True
+66,Single Scratch Model #0 (Ablation),True,566,30.0,1.9995,1.0,0.0,30,True
+66,Normal 5-Model Ensemble A* (Pure Mean),True,364,39.0,6.1217,1.0,0.0041145145955353065,39,True
+66,Confidence-Aware 5-Model Ensemble A* (Ours),True,372,39.0,5.8488,0.9866,0.0042,39,True
+67,Single Scratch Model #0 (Ablation),True,559,47.0,1.8387,1.0,0.0,47,True
+67,Normal 5-Model Ensemble A* (Pure Mean),True,306,47.0,4.6023,1.0,0.002832032253685576,47,True
+67,Confidence-Aware 5-Model Ensemble A* (Ours),True,274,47.0,4.2888,0.9905,0.003,47,True
+68,Single Scratch Model #0 (Ablation),True,337,26.0,1.1191,1.0,0.0,26,True
+68,Normal 5-Model Ensemble A* (Pure Mean),True,214,32.0,3.449,1.0,0.004149246720571384,32,True
+68,Confidence-Aware 5-Model Ensemble A* (Ours),True,220,32.0,3.4128,0.9867,0.0042,32,True
+69,Single Scratch Model #0 (Ablation),True,1860,48.0,5.8045,1.0,0.0,48,True
+69,Normal 5-Model Ensemble A* (Pure Mean),True,1215,55.0,17.907,1.0,0.004406935897762205,55,True
+69,Confidence-Aware 5-Model Ensemble A* (Ours),True,883,56.0,14.0025,0.9842,0.005,56,True
+70,Single Scratch Model #0 (Ablation),True,6062,44.0,18.934,1.0,0.0,44,True
+70,Normal 5-Model Ensemble A* (Pure Mean),True,643,45.0,9.4942,1.0,0.005768357804793343,45,True
+70,Confidence-Aware 5-Model Ensemble A* (Ours),True,636,45.0,9.2617,0.9815,0.0058,45,True
+71,Single Scratch Model #0 (Ablation),True,1109,30.0,3.8593,1.0,0.0,30,True
+71,Normal 5-Model Ensemble A* (Pure Mean),True,236,31.0,4.0585,1.0,0.00532470505322656,31,True
+71,Confidence-Aware 5-Model Ensemble A* (Ours),True,238,31.0,3.912,0.9807,0.006,31,True
+72,Single Scratch Model #0 (Ablation),True,5672,37.0,18.2531,1.0,0.0,37,True
+72,Normal 5-Model Ensemble A* (Pure Mean),True,281,43.0,4.3801,1.0,0.004668139793411708,43,True
+72,Confidence-Aware 5-Model Ensemble A* (Ours),True,312,43.0,5.1832,0.9845,0.0049,43,True
+73,Single Scratch Model #0 (Ablation),True,6724,54.0,19.1642,1.0,0.0,54,True
+73,Normal 5-Model Ensemble A* (Pure Mean),True,2172,50.0,32.7084,1.0,0.0048224402569982585,50,True
+73,Confidence-Aware 5-Model Ensemble A* (Ours),True,2331,50.0,34.9952,0.9842,0.0049,50,True
+74,Single Scratch Model #0 (Ablation),True,37,20.0,0.1405,1.0,0.0,20,True
+74,Normal 5-Model Ensemble A* (Pure Mean),True,38,23.0,0.7187,1.0,0.010637559317472052,23,True
+74,Confidence-Aware 5-Model Ensemble A* (Ours),True,39,23.0,0.774,0.9608,0.0122,23,True
+75,Single Scratch Model #0 (Ablation),True,325,31.0,1.2356,1.0,0.0,31,True
+75,Normal 5-Model Ensemble A* (Pure Mean),True,173,34.0,2.9855,1.0,0.004972497982478523,34,True
+75,Confidence-Aware 5-Model Ensemble A* (Ours),True,180,34.0,2.9101,0.9842,0.0049,34,True
+76,Single Scratch Model #0 (Ablation),True,664,31.0,2.3066,1.0,0.0,31,True
+76,Normal 5-Model Ensemble A* (Pure Mean),True,86,31.0,1.5417,1.0,0.007258678513415495,31,True
+76,Confidence-Aware 5-Model Ensemble A* (Ours),True,86,31.0,1.4958,0.9774,0.0071,31,True
+77,Single Scratch Model #0 (Ablation),True,97973,68.0,301.6344,1.0,0.0,68,True
+77,Normal 5-Model Ensemble A* (Pure Mean),False,22512,inf,360.0005,1.0,0.0017543148967586503,0,False
+77,Confidence-Aware 5-Model Ensemble A* (Ours),False,22723,inf,360.0124,0.9943,0.0018,0,False
+78,Single Scratch Model #0 (Ablation),True,8150,52.0,23.5765,1.0,0.0,52,True
+78,Normal 5-Model Ensemble A* (Pure Mean),True,2469,52.0,35.6166,1.0,0.005170918977085711,52,True
+78,Confidence-Aware 5-Model Ensemble A* (Ours),True,2390,52.0,33.2799,0.9832,0.0052,52,True
+79,Single Scratch Model #0 (Ablation),True,1504,32.0,5.2109,1.0,0.0,32,True
+79,Normal 5-Model Ensemble A* (Pure Mean),True,156,33.0,2.7635,1.0,0.003940915749011951,33,True
+79,Confidence-Aware 5-Model Ensemble A* (Ours),True,156,33.0,2.6854,0.9877,0.0038,33,True
+80,Single Scratch Model #0 (Ablation),True,11773,46.0,37.5405,1.0,0.0,46,True
+80,Normal 5-Model Ensemble A* (Pure Mean),True,597,46.0,9.1979,1.0,0.0029187164291449743,46,True
+80,Confidence-Aware 5-Model Ensemble A* (Ours),True,605,46.0,9.2381,0.9907,0.0029,46,True
+81,Single Scratch Model #0 (Ablation),True,5538,50.0,18.4496,1.0,0.0,50,True
+81,Normal 5-Model Ensemble A* (Pure Mean),True,953,54.0,14.9149,1.0,0.003418758689302379,54,True
+81,Confidence-Aware 5-Model Ensemble A* (Ours),True,1064,54.0,17.1396,0.9892,0.0034,54,True
+82,Single Scratch Model #0 (Ablation),True,20775,46.0,59.8625,1.0,0.0,46,True
+82,Normal 5-Model Ensemble A* (Pure Mean),True,2762,52.0,42.6838,1.0,0.006884792375793171,52,True
+82,Confidence-Aware 5-Model Ensemble A* (Ours),True,3044,52.0,45.8059,0.9771,0.0071,52,True
+83,Single Scratch Model #0 (Ablation),True,418,38.0,1.2821,1.0,0.0,38,True
+83,Normal 5-Model Ensemble A* (Pure Mean),True,90,38.0,1.3805,1.0,0.010162153033632652,38,True
+83,Confidence-Aware 5-Model Ensemble A* (Ours),True,93,38.0,1.4252,0.9676,0.0101,38,True
+84,Single Scratch Model #0 (Ablation),True,2311,32.0,7.6981,1.0,0.0,32,True
+84,Normal 5-Model Ensemble A* (Pure Mean),True,386,46.0,6.2407,1.0,0.004704961244159493,46,True
+84,Confidence-Aware 5-Model Ensemble A* (Ours),True,372,46.0,5.8055,0.985,0.0047,46,True
+85,Single Scratch Model #0 (Ablation),True,272,36.0,0.9249,1.0,0.0,36,True
+85,Normal 5-Model Ensemble A* (Pure Mean),True,1519,38.0,23.8103,1.0,0.003779294374506289,38,True
+85,Confidence-Aware 5-Model Ensemble A* (Ours),True,1885,38.0,29.3588,0.9861,0.0043,38,True
+86,Single Scratch Model #0 (Ablation),True,697,31.0,2.2372,1.0,0.0,31,True
+86,Normal 5-Model Ensemble A* (Pure Mean),True,1144,34.0,17.6968,1.0,0.008315158233827403,34,True
+86,Confidence-Aware 5-Model Ensemble A* (Ours),True,1171,34.0,18.5904,0.9735,0.0083,34,True
+87,Single Scratch Model #0 (Ablation),True,52053,52.0,152.51,1.0,0.0,52,True
+87,Normal 5-Model Ensemble A* (Pure Mean),True,5737,56.0,85.368,1.0,0.004108802863002121,56,True
+87,Confidence-Aware 5-Model Ensemble A* (Ours),True,4611,56.0,70.0053,0.9864,0.0042,56,True
+88,Single Scratch Model #0 (Ablation),True,264,34.0,0.8967,1.0,0.0,34,True
+88,Normal 5-Model Ensemble A* (Pure Mean),True,250,42.0,4.1884,1.0,0.005641891874262645,42,True
+88,Confidence-Aware 5-Model Ensemble A* (Ours),True,294,42.0,4.8567,0.9827,0.0054,42,True
+89,Single Scratch Model #0 (Ablation),True,26,19.0,0.1009,1.0,0.0,19,True
+89,Normal 5-Model Ensemble A* (Pure Mean),True,32,19.0,0.5371,1.0,0.002423578681992723,19,True
+89,Confidence-Aware 5-Model Ensemble A* (Ours),True,33,19.0,0.6485,0.9909,0.0029,19,True
+90,Single Scratch Model #0 (Ablation),True,18139,57.0,51.7726,1.0,0.0,57,True
+90,Normal 5-Model Ensemble A* (Pure Mean),True,10923,57.0,154.8906,1.0,0.005441983834968978,57,True
+90,Confidence-Aware 5-Model Ensemble A* (Ours),True,10335,59.0,150.1749,0.9823,0.0055,59,True
+91,Single Scratch Model #0 (Ablation),True,25788,47.0,83.6416,1.0,0.0,47,True
+91,Normal 5-Model Ensemble A* (Pure Mean),True,585,49.0,8.9157,1.0,0.002989425340797937,49,True
+91,Confidence-Aware 5-Model Ensemble A* (Ours),True,516,49.0,8.0518,0.9906,0.0029,49,True
+92,Single Scratch Model #0 (Ablation),True,389,28.0,1.2915,1.0,0.0,28,True
+92,Normal 5-Model Ensemble A* (Pure Mean),True,165,32.0,2.7406,1.0,0.009852523496435154,32,True
+92,Confidence-Aware 5-Model Ensemble A* (Ours),True,168,32.0,2.6376,0.9683,0.0099,32,True
+93,Single Scratch Model #0 (Ablation),True,4606,42.0,14.8109,1.0,0.0,42,True
+93,Normal 5-Model Ensemble A* (Pure Mean),True,3947,42.0,58.7889,1.0,0.00701162555530421,42,True
+93,Confidence-Aware 5-Model Ensemble A* (Ours),True,4045,42.0,60.0228,0.9775,0.007,42,True
+94,Single Scratch Model #0 (Ablation),True,71,24.0,0.3075,1.0,0.0,24,True
+94,Normal 5-Model Ensemble A* (Pure Mean),True,94,32.0,1.5852,1.0,0.006703157245965507,32,True
+94,Confidence-Aware 5-Model Ensemble A* (Ours),True,93,32.0,1.5757,0.9788,0.0066,32,True
+95,Single Scratch Model #0 (Ablation),True,2417,38.0,7.6547,1.0,0.0,38,True
+95,Normal 5-Model Ensemble A* (Pure Mean),True,794,49.0,12.7986,1.0,0.006721486354890303,49,True
+95,Confidence-Aware 5-Model Ensemble A* (Ours),True,646,49.0,10.4104,0.98,0.0063,49,True
+96,Single Scratch Model #0 (Ablation),True,1859,36.0,6.4338,1.0,0.0,36,True
+96,Normal 5-Model Ensemble A* (Pure Mean),True,1047,44.0,16.2827,1.0,0.004241136466327521,44,True
+96,Confidence-Aware 5-Model Ensemble A* (Ours),True,453,46.0,7.0332,0.9894,0.0033,46,True
+97,Single Scratch Model #0 (Ablation),True,2633,31.0,8.6008,1.0,0.0,31,True
+97,Normal 5-Model Ensemble A* (Pure Mean),True,815,31.0,12.0914,1.0,0.009212559167159599,31,True
+97,Confidence-Aware 5-Model Ensemble A* (Ours),True,826,31.0,12.3033,0.9721,0.0087,31,True
+98,Single Scratch Model #0 (Ablation),True,190,44.0,0.6767,1.0,0.0,44,True
+98,Normal 5-Model Ensemble A* (Pure Mean),True,737,47.0,12.7333,1.0,0.004774862265339274,47,True
+98,Confidence-Aware 5-Model Ensemble A* (Ours),True,488,47.0,7.6302,0.9861,0.0044,47,True
+99,Single Scratch Model #0 (Ablation),True,40,22.0,0.1469,1.0,0.0,22,True
+99,Normal 5-Model Ensemble A* (Pure Mean),True,78,26.0,1.3508,1.0,0.0024264620362185016,26,True
+99,Confidence-Aware 5-Model Ensemble A* (Ours),True,82,26.0,1.3203,0.9849,0.0047,26,True
+100,Single Scratch Model #0 (Ablation),True,1533,43.0,4.7235,1.0,0.0,43,True
+100,Normal 5-Model Ensemble A* (Pure Mean),True,698,47.0,10.7298,1.0,0.0025557111644758574,47,True
+100,Confidence-Aware 5-Model Ensemble A* (Ours),True,695,47.0,10.5848,0.9919,0.0025,47,True
