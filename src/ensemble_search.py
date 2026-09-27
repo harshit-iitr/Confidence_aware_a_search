@@ -31,7 +31,9 @@ class DeepEnsembleHeuristic:
         goal_state: np.ndarray,
         box_targets: List[Tuple[int, int]],
         device: torch.device,
-        lambda_min: float = 0.20,
+        lambda_min: float = 0.50,
+        beta: float = 2.5,
+        gating_mode: str = "std",
         scale_constant_C: float = 50.0,
         dim: int = 10
     ):
@@ -40,6 +42,8 @@ class DeepEnsembleHeuristic:
         self.device = device
         self.box_targets = box_targets
         self.lambda_min = lambda_min
+        self.beta = beta
+        self.gating_mode = gating_mode
         self.C = scale_constant_C
         self.dim = dim
         
@@ -102,7 +106,11 @@ class DeepEnsembleHeuristic:
             if fixed_lambda is not None:
                 lambda_conf = fixed_lambda
             else:
-                lambda_raw = max(0.0, 1.0 - 4.0 * variance)
+                if self.gating_mode == "std":
+                    std_dev = float(np.sqrt(max(0.0, variance)))
+                    lambda_raw = max(0.0, 1.0 - self.beta * std_dev)
+                else:
+                    lambda_raw = max(0.0, 1.0 - self.beta * variance)
                 lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
                 
             p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
