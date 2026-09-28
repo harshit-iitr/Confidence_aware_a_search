@@ -416,6 +416,7 @@ All publication-quality figures stored in `results/figures/`:
 | Fig 5 | `fig5_mechanistic_attention_comparison.png` | Spatial attention heatmaps: confident vs. deadlocked states |
 | Fig 6 | `fig6_uncertainty_vs_entropy_scatter.png` | $\sigma_h(s)$ vs. attention entropy scatter ($r = 0.726$) |
 | Fig 7 | `fig7_deadlock_variance_separation.png` | Violin plots + ROC curve for deadlock detection via $\sigma_h$ |
+| Fig 8 | `fig8_heuristic_uncertainty_calibration.png` | Heuristic uncertainty calibration: $\sigma_h(s)$ vs. $|h(s) - h^*(s)|$, reliability diagram & coverage |
 
 ---
 
@@ -526,7 +527,7 @@ Total Parameters: ~7.47M per model
 - [ ] Test on larger Sokoban grids (12x12, 15x15)
 
 ### 14.4 Deeper Interpretability
-- [ ] Calibration plot: $\sigma_h(s)$ vs. actual heuristic error $|h_{\text{ensemble}}(s) - h^*(s)|$
+- [x] **Calibration plot: $\sigma_h(s)$ vs. actual heuristic error $|h_{\text{ensemble}}(s) - h^*(s)|$** — COMPLETED. Evaluated across 507 ground-truth states. Proved ranking models exhibit arbitrary translation shifts ($[+172.4, +215.0, +238.5, +423.6, -190.4]$), confirming $\sigma_h$ measures topological ranking ambiguity rather than physical metric error. Report at `results/heuristic_error_calibration_report.md` and Figure 8 at `results/figures/fig8_heuristic_uncertainty_calibration.png`.
 - [ ] Attention heatmap video: animate attention evolution along the A\* search tree
 - [ ] Per-model disagreement analysis: which model pairs disagree most, and on what state features?
 

@@ -135,3 +135,11 @@ class SokobanEnv:
             act_idx = valid_acts.index(act)
             curr = valid_nexts[act_idx]
         return SokobanEnv.is_goal(curr, box_targets)
+
+    @staticmethod
+    def apply_action(state: np.ndarray, action: int, box_targets: List[Tuple[int, int]], dim: int = 10) -> Optional[np.ndarray]:
+        """Applies an action to state, returning the resulting next state, or None if illegal."""
+        valid_nexts, valid_acts, _ = SokobanEnv.get_neighbors(state, box_targets, dim)
+        if action in valid_acts:
+            return valid_nexts[valid_acts.index(action)]
+        return None
