@@ -158,7 +158,9 @@ Confidence_aware_a_search/
 ├── benchmarks/                        <- Rigorous benchmark execution scripts
 │   ├── run_rigorous_600s_benchmark.py <- 3-box in-distribution 600s benchmark runner
 │   ├── run_5box_benchmark.py          <- 5-box OOD benchmark runner with periodic logging (every 20 runs)
+│   ├── run_5box_riskaverse_benchmark.py <- Pure Risk-Averse & Confidence-Aware 5-box runner (domain-general, Manhattan only)
 │   ├── run_ensemble_benchmark.py      <- Deep Ensemble benchmark evaluation runner
+│   ├── run_ensemble_comparison_benchmark.py <- 3-tier overnight ablation runner
 │   └── generate_5box_dataset.py       <- Procedural 5-box Sokoban maze generator (gym-sokoban)
 │
 ├── data/                              <- Benchmark problem datasets

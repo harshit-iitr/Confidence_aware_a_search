@@ -14,6 +14,7 @@ from src.torch_model import ChrestienHeuristicNet
 from src.sokoban_env import SokobanEnv
 from src.confidence_aware_search import (
     get_device,
+    get_device_name,
     author_state_to_tensor,
     ConfidenceAwareMCHeuristic,
     run_confidence_aware_astar
@@ -78,16 +79,18 @@ def main():
     parser.add_argument("--max_exp", type=int, default=1000000, help="Max expansions ceiling (default: 1,000,000 / uncapped)")
     parser.add_argument("--beta", type=float, default=2.5, help="Standard deviation sensitivity coefficient (default: 2.5)")
     parser.add_argument("--lambda_min", type=float, default=0.50, help="Minimum confidence floor (default: 0.50)")
+    parser.add_argument("--device", type=str, default="auto", choices=["auto", "cuda", "xpu", "cpu"], help="Compute device (default: auto)")
     parser.add_argument("--output_csv", type=str, default="results/calibrated_5box_experiment_results.csv", help="Output CSV path")
     parser.add_argument("--output_report", type=str, default="results/calibrated_5box_experiment_report.md", help="Output markdown report path")
     args = parser.parse_args()
 
-    device = get_device()
+    device = get_device(args.device)
+    dev_name = get_device_name(device)
     print("=" * 105, flush=True)
     print(" 5-BOX OUT-OF-DISTRIBUTION FOCUSED EXPERIMENT", flush=True)
     print(" 1. MC-Dropout applied to Scratch Model #0 (Ablation against Paper MC-Dropout)", flush=True)
     print(" 2. Calibrated Gating on 5-Model Ensemble (std-dev based, beta=2.5, lambda_min=0.50)", flush=True)
-    print(f" Compute Device       : {device}", flush=True)
+    print(f" Compute Device       : {device} [{dev_name}]", flush=True)
     print(f" Dataset Path         : {args.dataset}", flush=True)
     print(f" Number of Mazes      : {args.num_mazes}", flush=True)
     print(f" Timeout              : {args.timeout}s (6.0 minutes hard ceiling)", flush=True)

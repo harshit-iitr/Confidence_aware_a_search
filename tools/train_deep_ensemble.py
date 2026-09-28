@@ -15,7 +15,7 @@ from src.torch_model import ChrestienHeuristicNet
 from src.sokoban_env import SokobanEnv
 from src.classical_heuristics import manhattan_distance_heuristic
 from src.search_algorithms import extract_lstar_training_data
-from src.confidence_aware_search import get_device, author_state_to_tensor
+from src.confidence_aware_search import get_device, get_device_name, author_state_to_tensor
 
 
 def compute_lstar_ranking_loss(
@@ -80,7 +80,7 @@ def train_single_ensemble_model(
     save_path = os.path.join(output_dir, f"ensemble_model_{model_id}.pt")
     
     device = get_device()
-    dev_name = torch.xpu.get_device_name(0) if device.type == "xpu" else (torch.cuda.get_device_name(0) if device.type == "cuda" else "CPU")
+    dev_name = get_device_name(device)
     
     # 80% Bagging Subsampling without replacement
     n_sample = int(len(all_states) * bagging_ratio)

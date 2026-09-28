@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from src.torch_model import ChrestienHeuristicNet
 from src.sokoban_env import SokobanEnv
-from src.confidence_aware_search import get_device, author_state_to_tensor
+from src.confidence_aware_search import get_device, get_device_name, author_state_to_tensor
 from src.ensemble_search import DeepEnsembleHeuristic, run_ensemble_astar
 
 
@@ -180,6 +180,7 @@ def main():
     parser.add_argument("--num_mazes", type=int, default=None, help="Number of mazes to evaluate")
     parser.add_argument("--timeout", type=float, default=360.0, help="Per-algorithm timeout in seconds (default: 360.0s / 6 mins)")
     parser.add_argument("--max_exp", type=int, default=1000000, help="Max expansions ceiling (default: 1,000,000 / uncapped)")
+    parser.add_argument("--device", type=str, default="auto", choices=["auto", "cuda", "xpu", "cpu"], help="Compute device (default: auto)")
     parser.add_argument("--output_csv", type=str, default=None, help="Output CSV path")
     parser.add_argument("--output_report", type=str, default=None, help="Output markdown report path")
     args = parser.parse_args()
@@ -201,11 +202,12 @@ def main():
         suite_title = "5-Box Sokoban (Out-of-Distribution Benchmark)"
 
     num_mazes = args.num_mazes or default_num_mazes
-    device = get_device()
+    device = get_device(args.device)
+    dev_name = get_device_name(device)
 
     print("=" * 100, flush=True)
     print(f" THREE-TIER ABLATION BENCHMARK: {suite_title}", flush=True)
-    print(f" Compute Device       : {device}", flush=True)
+    print(f" Compute Device       : {device} [{dev_name}]", flush=True)
     print(f" Test Suite           : {args.suite.upper()} ({dataset_path})", flush=True)
     print(f" Reference Baseline   : {ref_csv_path}", flush=True)
     print(f" Checkpoint Directory : {args.checkpoint_dir}", flush=True)

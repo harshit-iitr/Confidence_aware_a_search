@@ -11,12 +11,25 @@ from torch_model import ChrestienHeuristicNet
 from sokoban_env import SokobanEnv
 from classical_heuristics import manhattan_distance_heuristic
 
-def get_device() -> torch.device:
-    if hasattr(torch, "xpu") and torch.xpu.is_available():
-        return torch.device("xpu")
-    elif torch.cuda.is_available():
+def get_device(preferred: Optional[str] = None) -> torch.device:
+    """Returns preferred device or auto-detects CUDA -> XPU -> CPU."""
+    if preferred and preferred.lower() != "auto":
+        return torch.device(preferred)
+    if torch.cuda.is_available():
         return torch.device("cuda")
+    elif hasattr(torch, "xpu") and torch.xpu.is_available():
+        return torch.device("xpu")
     return torch.device("cpu")
+
+def get_device_name(device: torch.device) -> str:
+    """Returns friendly hardware name across CUDA, XPU, and CPU."""
+    if device.type == "cuda" and torch.cuda.is_available():
+        idx = device.index if device.index is not None else 0
+        return f"CUDA ({torch.cuda.get_device_name(idx)})"
+    elif device.type == "xpu" and hasattr(torch, "xpu") and torch.xpu.is_available():
+        idx = device.index if device.index is not None else 0
+        return f"XPU ({torch.xpu.get_device_name(idx)})"
+    return "CPU"
 
 def author_state_to_tensor(state: np.ndarray, box_targets: List[Tuple[int, int]], dim: int = 10) -> np.ndarray:
     """Exact tensor representation matching paper's training convention."""

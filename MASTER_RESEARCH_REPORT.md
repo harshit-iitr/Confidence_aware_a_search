@@ -438,6 +438,7 @@ Confidence_aware_a_search/
 ├── benchmarks/
 │   ├── run_rigorous_600s_benchmark.py       # 3-box 7-algorithm benchmark
 │   ├── run_5box_benchmark.py                # 5-box OOD benchmark
+│   ├── run_5box_riskaverse_benchmark.py     # Pure Risk-Averse & Confidence-Aware 5-box benchmark (Manhattan only)
 │   ├── run_ensemble_comparison_benchmark.py # 3-tier overnight ablation
 │   ├── run_5box_calibrated_experiment.py    # MC-Dropout vs. calibrated ensemble
 │   └── generate_5box_dataset.py             # Procedural maze generator
