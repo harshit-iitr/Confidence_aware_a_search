@@ -10,6 +10,10 @@ This project builds upon, replicates, and rigorously evaluates against:
 > **Optimize Planning Heuristics to Rank, not to Estimate Cost-to-Goal**  
 > *Chrestien et al., Advances in Neural Information Processing Systems (NeurIPS 2023).*
 
+> [!IMPORTANT]
+> **Master Research Report & Progress Tracker:**  
+> For the comprehensive chronological record of all experiments, benchmarks, gain factor deconstructions, paper bug discoveries, mechanistic interpretability results, and next steps, see [**`MASTER_RESEARCH_REPORT.md`**](file:///d:/IITR/DAC-203_project/MASTER_RESEARCH_REPORT.md).
+
 ---
 
 ## 1. Motivation & Core Concept
