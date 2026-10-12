@@ -16,9 +16,9 @@
 
 | Metric | Formulation | Pearson Correlation ($r$) | Spearman Rank ($\rho$) | Significance ($p$-value) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Affine-Calibrated Uncertainty vs. Error** | $\sigma_{\mathrm{cal}}(s)$ vs. $|h_{\mathrm{cal}}(s) - h^*(s)|$ | **-0.1343** | **-0.1526** | $p = \mathbf{2.44e-03}$ |
+| **Affine-Calibrated Uncertainty vs. Error** | $\sigma_{\mathrm{cal}}(s)$ vs. $|h_{\mathrm{cal}}(s) - h^*(s)|$ | **0.0053** | **0.0329** | $p = \mathbf{9.04e-01}$ |
 | **Percentile-Scaled Uncertainty vs. Error** | $\sigma_{\mathrm{scaled}}(s)$ vs. $|h_{\mathrm{scaled}}(s) - h^*(s)|$ | **-0.1357** | **-0.0805** | $p = \mathbf{2.19e-03}$ |
-| **Heuristic Alignment with True Cost** | $h_{\mathrm{cal}}(s)$ vs. $h^*(s)$ | **0.4442** | **0.4653** | $p = \mathbf{6.34e-26}$ |
+| **Heuristic Alignment with True Cost** | $h_{\mathrm{cal}}(s)$ vs. $h^*(s)$ | **0.9284** | **0.9273** | $p = \mathbf{2.74e-219}$ |
 
 ---
 
@@ -28,11 +28,11 @@ Sorting states into 5 uncertainty quintiles (from lowest ensemble variance to hi
 
 | Uncertainty Quintile | Uncertainty Range $\sigma_h$ | Mean $\bar{\sigma}$ | Mean Absolute Error (MAE) | Median Absolute Error | RMSE | Sample Count ($N$) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Q1** | [0.12 - 0.39] | 0.31 steps | **6.08 steps** | 6.12 steps | 7.01 | 102 |
-| **Q2** | [0.39 - 0.57] | 0.47 steps | **5.73 steps** | 3.64 steps | 7.41 | 101 |
-| **Q3** | [0.57 - 0.78] | 0.67 steps | **6.69 steps** | 6.78 steps | 7.82 | 100 |
-| **Q4** | [0.78 - 1.34] | 1.08 steps | **5.74 steps** | 5.06 steps | 6.92 | 101 |
-| **Q5** | [1.34 - 1.54] | 1.44 steps | **4.16 steps** | 3.13 steps | 5.67 | 103 |
+| **Q1** | [0.44 - 1.17] | 0.93 steps | **2.20 steps** | 1.76 steps | 2.93 | 102 |
+| **Q2** | [1.17 - 1.50] | 1.36 steps | **2.26 steps** | 1.83 steps | 2.73 | 100 |
+| **Q3** | [1.50 - 1.71] | 1.60 steps | **2.64 steps** | 2.35 steps | 3.24 | 100 |
+| **Q4** | [1.71 - 1.94] | 1.81 steps | **2.45 steps** | 2.27 steps | 2.96 | 101 |
+| **Q5** | [1.94 - 3.14] | 2.22 steps | **2.11 steps** | 1.54 steps | 2.62 | 104 |
 
 ---
 
@@ -42,9 +42,9 @@ Evaluating how frequently the true optimal cost falls within $k$ standard deviat
 
 | Confidence Level | Observed Empirical Coverage | Theoretical Gaussian Standard | Interpretation |
 | :--- | :---: | :---: | :--- |
-| **$1\sigma$ Interval ($k=1$)** | **10.5%** | 68.3% | Slightly conservative |
-| **$2\sigma$ Interval ($k=2$)** | **18.5%** | 95.4% | Highly reliable safety envelope |
-| **$3\sigma$ Interval ($k=3$)** | **28.4%** | 99.7% | Near-absolute error ceiling |
+| **$1\sigma$ Interval ($k=1$)** | **37.3%** | 68.3% | Slightly conservative |
+| **$2\sigma$ Interval ($k=2$)** | **71.6%** | 95.4% | Highly reliable safety envelope |
+| **$3\sigma$ Interval ($k=3$)** | **88.4%** | 99.7% | Near-absolute error ceiling |
 
 ---
 

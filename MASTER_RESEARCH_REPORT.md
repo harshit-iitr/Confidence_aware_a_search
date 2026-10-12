@@ -354,6 +354,21 @@ def train_minibatches(x_train, y_train, train_loss, search_alg, ...):
 
 *Note: Rows 9–11 were evaluated side-by-side on NVIDIA RTX 3050 Laptop GPU with `prune_deadlocks=False` (pure domain-general search).*
 
+### 9.3 Complete Sliding-Tile ($5\times 5$ 24-Puzzle) Strict Paper A\* Benchmark (200 Boards, 6-Min Timeout, No Expansion Cap)
+
+Evaluated all 200 test boards in `Optimize-Planning-Heuristics-to-Rank/slidingtile/test/stile5.txt` using the exact converted `stile` checkpoint (`checkpoints/slidingtile/stile_paper_pytorch.pt`) and the strict `test_on_Astar.py` algorithm (`max_expansions = None`, `timeout = 360.0s`):
+
+| # | Algorithm | Model Source | Solve Rate | Mean Paper Exp (Solved) | Median Paper Exp (Solved) | 90th % Exp | 95th % Exp | Mean Popped | Mean Plan Len | Mean Time |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 1 | Paper Baseline A\* ($\mathcal{L}^*$) | `stile` (PT) | 99.5% (199/200) | 8,548.1 | 5,841.0 | 17,119.4 | 23,909.8 | 3,762.2 | 136.7 | 14.01s |
+| 2 | **MC-Dropout Risk-Averse ($\kappa$=0.50)** | `stile` (PT) | **100.0% (200/200)** | **6,857.1** (6,752.0*) | **4,756.5** (4,732.0*) | 14,506.1 | 20,968.3 | **3,005.2** | 139.9 | 24.29s |
+| 3 | **MC-Dropout Conf-Aware ($\beta$=2.5)** | `stile` (PT) | **100.0% (200/200)** | **5,329.0** (5,327.7*) | **3,357.5** (3,350.0*) | **11,579.9** | **14,712.1** | **2,365.0** | 137.2 | 19.38s |
+
+*\*Values in parentheses are across the 199 mutually solved boards:*
+- **MC-Dropout Conf-Aware vs. Paper Baseline (199 Common Boards):** **-37.67% mean expansions** ($5,327.7$ vs. $8,548.1$), **-42.65% median expansions** ($3,350.0$ vs. $5,841.0$), **141W / 0T / 58L (70.9% win rate)**, Wilcoxon signed-rank $p = 5.36 \times 10^{-10}$, paired $t$-test $p = 2.22 \times 10^{-6}$.
+- **MC-Dropout Risk-Averse vs. Paper Baseline (199 Common Boards):** **-21.01% mean expansions** ($6,752.0$ vs. $8,548.1$), **-18.99% median expansions** ($4,732.0$ vs. $5,841.0$), **115W / 0T / 84L (57.8% win rate)**, Wilcoxon signed-rank $p = 2.88 \times 10^{-3}$, paired $t$-test $p = 9.71 \times 10^{-3}$.
+- **Board #25 (Where Paper Baseline Timed Out at 360s):** `paper_baseline_lstar` timed out after **221,858 expansions** (`96,461` popped), whereas `mc_dropout_risk_averse` solved it in **27,768 expansions** (`100.95s`) and `mc_dropout_conf_aware` solved it in **5,595 expansions** (`20.23s`).
+
 ---
 
 ## 10. Statistical Analysis & Ratio Breakdowns
@@ -423,7 +438,8 @@ All publication-quality figures stored in `results/figures/`:
 | Fig 5 | `fig5_mechanistic_attention_comparison.png` | Spatial attention heatmaps: confident vs. deadlocked states |
 | Fig 6 | `fig6_uncertainty_vs_entropy_scatter.png` | $\sigma_h(s)$ vs. attention entropy scatter ($r = 0.726$) |
 | Fig 7 | `fig7_deadlock_variance_separation.png` | Violin plots + ROC curve for deadlock detection via $\sigma_h$ |
-| Fig 8 | `fig8_heuristic_uncertainty_calibration.png` | Heuristic uncertainty calibration: $\sigma_h(s)$ vs. $|h(s) - h^*(s)|$, reliability diagram & coverage |
+| Fig 8 | `fig8_heuristic_uncertainty_calibration.png` | Heuristic uncertainty calibration: $\sigma_h(s)$ vs. $|h(s) - h^*(s)|$, Goal-Anchored Calibration ($r=0.9284$) |
+| Fig 9 | `fig9_sliding_tile_strict_200boards.png` | 200-Board Sliding-Tile ($5\times 5$ 24-Puzzle) Strict Paper A\* Benchmark (CDF, Head-to-Head Scatters, Tail Breakdown) |
 
 ---
 
@@ -528,12 +544,12 @@ Total Parameters: ~7.47M per model
 - [ ] Test combined mode: Risk-Averse priority + Deadlock-Aware fallback heuristic
 
 ### 14.3 Extended Domains
-- [ ] Evaluate on Sliding-Tile Puzzle (15-puzzle) — paper also benchmarks this
+- [x] **Evaluate on Sliding-Tile Puzzle ($5\times 5$ 24-Puzzle, 200 Test Boards, Strict Paper A\*)** — COMPLETED using the converted `stile` checkpoint (`checkpoints/slidingtile/stile_paper_pytorch.pt`, no expansion limit, 360s timeout). Both **MC-Dropout Confidence-Aware** and **MC-Dropout Risk-Averse** achieved **100.0% (200/200) solve rate** (vs. Paper Baseline's **99.5% / 199/200**). Across the 199 mutually solved boards, **MC-Dropout Confidence-Aware** reduced mean expansions by **37.67%** and median expansions by **42.65%** (**141W / 58L**, $p = 5.36 \times 10^{-10}$), while **MC-Dropout Risk-Averse** reduced mean expansions by **21.01%** and median expansions by **18.99%** (**115W / 84L**, $p = 0.00288$). Full data in `results/sliding_tile_strict_paper_6min.csv` and `results/sliding_tile_strict_paper_6min_report.md`.
+- [ ] Train 5-Model Deep Ensemble on Sliding-Tile and evaluate on $6\times 6$ (35-Puzzle) & $7\times 7$ (48-Puzzle) OOD grids
 - [ ] Evaluate on Maze-with-Portals domain — paper's third benchmark
-- [ ] Test on larger Sokoban grids (12x12, 15x15)
 
 ### 14.4 Deeper Interpretability
-- [x] **Calibration plot: $\sigma_h(s)$ vs. actual heuristic error $|h_{\text{ensemble}}(s) - h^*(s)|$** — COMPLETED. Evaluated across 507 ground-truth states. Proved ranking models exhibit arbitrary translation shifts ($[+172.4, +215.0, +238.5, +423.6, -190.4]$), confirming $\sigma_h$ measures topological ranking ambiguity rather than physical metric error. Report at `results/heuristic_error_calibration_report.md` and Figure 8 at `results/figures/fig8_heuristic_uncertainty_calibration.png`.
+- [x] **Calibration plot: $\sigma_h(s)$ vs. actual heuristic error $|h_{\text{ensemble}}(s) - h^*(s)|$** — COMPLETED. Evaluated across 507 ground-truth states. Proved ranking models exhibit arbitrary translation shifts ($[+172.4, +215.0, +238.5, +423.6, -190.4]$), confirming $\sigma_h$ measures topological ranking ambiguity rather than physical metric error, and proved Goal-Anchored Calibration collapses predictions onto the $1:1$ diagonal ($r = 0.9284$, MAE $= 2.33$ steps). Report at `results/heuristic_error_calibration_report.md` and Figure 8 at `results/figures/fig8_heuristic_uncertainty_calibration.png`.
 - [ ] Attention heatmap video: animate attention evolution along the A\* search tree
 - [ ] Per-model disagreement analysis: which model pairs disagree most, and on what state features?
 

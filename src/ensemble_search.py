@@ -61,6 +61,16 @@ class DeepEnsembleHeuristic:
         # Goal tensor
         goal_np = author_state_to_tensor(goal_state, box_targets, dim)
         self.goal_tensor_single = torch.from_numpy(goal_np).unsqueeze(0).to(device)
+        
+        # Precompute per-model goal-state anchor h_m(g, g) to remove per-maze shift
+        self.goal_anchors = np.zeros(self.M, dtype=np.float64)
+        self.rel_model_offsets = None
+        if self.search_mode == "goal_anchored":
+            with torch.no_grad():
+                for m_idx in range(self.M):
+                    self.goal_anchors[m_idx] = float(
+                        self.models[m_idx](self.goal_tensor_single, self.goal_tensor_single).item()
+                    )
 
     def evaluate_batch(self, states: List[np.ndarray], fixed_lambda: Optional[float] = None) -> List[HeuristicEvaluation]:
         if not states:
@@ -106,32 +116,47 @@ class DeepEnsembleHeuristic:
         # For each candidate state, compute ensemble variance and gating weight
         for i, (orig_idx, p_class) in enumerate(zip(active_indices, active_p_class)):
             m_vals = [ensemble_preds[m][i] for m in range(self.M)]
-            m_percentiles = [
-                self.ensemble_trackers[m].get_percentile_and_insert(m_vals[m])
-                for m in range(self.M)
-            ]
-            mean_p = float(np.mean(m_percentiles))
-            variance = float(np.var(m_percentiles))
-            std_dev = float(np.sqrt(max(0.0, variance)))
             
-            if self.search_mode == "risk_averse":
-                # Risk-averse UCB heuristic: penalize states where ensemble has high variance
-                p_blend = min(1.0, mean_p + self.kappa * std_dev)
-                h_blend = p_blend * self.C
+            if self.search_mode == "goal_anchored":
+                # Goal-Anchored Metric Calibration: h_m(s, g) - h_m(g, g)
+                anchored = np.array(m_vals, dtype=np.float64) - self.goal_anchors
+                if self.rel_model_offsets is None:
+                    self.rel_model_offsets = anchored - np.mean(anchored)
+                adj_vals = anchored - self.rel_model_offsets
+                mu_steps = float(np.mean(adj_vals))
+                sigma_steps = float(np.std(adj_vals))
+                variance = float(sigma_steps ** 2)
+                mean_p = mu_steps
+                p_blend = mu_steps + self.kappa * sigma_steps
+                h_blend = max(0.0, p_blend * self.C)
                 lambda_conf = 1.0
             else:
-                # Convex confidence-gated blending
-                if fixed_lambda is not None:
-                    lambda_conf = fixed_lambda
+                m_percentiles = [
+                    self.ensemble_trackers[m].get_percentile_and_insert(m_vals[m])
+                    for m in range(self.M)
+                ]
+                mean_p = float(np.mean(m_percentiles))
+                variance = float(np.var(m_percentiles))
+                std_dev = float(np.sqrt(max(0.0, variance)))
+                
+                if self.search_mode == "risk_averse":
+                    # Risk-averse UCB heuristic: penalize states where ensemble has high variance
+                    p_blend = min(1.0, mean_p + self.kappa * std_dev)
+                    h_blend = p_blend * self.C
+                    lambda_conf = 1.0
                 else:
-                    if self.gating_mode == "std":
-                        lambda_raw = max(0.0, 1.0 - self.beta * std_dev)
+                    # Convex confidence-gated blending
+                    if fixed_lambda is not None:
+                        lambda_conf = fixed_lambda
                     else:
-                        lambda_raw = max(0.0, 1.0 - self.beta * variance)
-                    lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
-                    
-                p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
-                h_blend = p_blend * self.C
+                        if self.gating_mode == "std":
+                            lambda_raw = max(0.0, 1.0 - self.beta * std_dev)
+                        else:
+                            lambda_raw = max(0.0, 1.0 - self.beta * variance)
+                        lambda_conf = self.lambda_min + (1.0 - self.lambda_min) * lambda_raw
+                        
+                    p_blend = lambda_conf * mean_p + (1.0 - lambda_conf) * p_class
+                    h_blend = p_blend * self.C
             
             results[orig_idx] = HeuristicEvaluation(
                 h_blend=h_blend,

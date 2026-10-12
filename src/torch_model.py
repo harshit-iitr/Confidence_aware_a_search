@@ -34,9 +34,34 @@ class PositionalEncoding2D(nn.Module):
         
         self.register_buffer('pe', pe.unsqueeze(0))  # (1, C, H, W)
 
+    def _build_pe(self, channels: int, height: int, width: int, device=None, dtype=None) -> torch.Tensor:
+        pe = torch.zeros(channels, height, width, device=device, dtype=dtype)
+        c_half = channels // 2
+        num_freqs = c_half // 2
+        div_term = torch.exp(
+            torch.arange(0., c_half, 2, device=device, dtype=dtype) * -(math.log(10000.0) / c_half)
+        )
+        pos_h = torch.arange(0., height, device=device, dtype=dtype).unsqueeze(1)
+        pos_w = torch.arange(0., width, device=device, dtype=dtype).unsqueeze(1)
+
+        sin_h = torch.sin(pos_h * div_term).t().unsqueeze(-1).expand(num_freqs, height, width)
+        cos_h = torch.cos(pos_h * div_term).t().unsqueeze(-1).expand(num_freqs, height, width)
+        sin_w = torch.sin(pos_w * div_term).t().unsqueeze(1).expand(num_freqs, height, width)
+        cos_w = torch.cos(pos_w * div_term).t().unsqueeze(1).expand(num_freqs, height, width)
+
+        pe[0:c_half:2, :, :] = sin_h
+        pe[1:c_half:2, :, :] = cos_h
+        pe[c_half::2, :, :] = sin_w
+        pe[c_half+1::2, :, :] = cos_w
+        return pe.unsqueeze(0)
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # x: (B, C, H, W)
-        return x + self.pe[:, :, :x.size(2), :x.size(3)]
+        H, W = x.size(2), x.size(3)
+        if H <= self.pe.size(2) and W <= self.pe.size(3):
+            return x + self.pe[:, :, :H, :W]
+        pe_dyn = self._build_pe(x.size(1), H, W, device=x.device, dtype=x.dtype)
+        return x + pe_dyn
 
 
 class AttentionAugmentation2D(nn.Module):
@@ -76,15 +101,18 @@ class AttentionAugmentation2D(nn.Module):
 
 class ChrestienHeuristicNet(nn.Module):
     """
-    Neural Heuristic Network matching Chrestien et al. NeurIPS 2023.
+    Neural Heuristic Network matching Chrestien et al.
     Inputs:
-      - Current state one-hot: (B, 5, H, W)
-      - Goal state one-hot: (B, 5, H, W)
+      - Current state one-hot: (B, C_state, H, W)
+      - Goal state one-hot: (B, C_state, H, W)
+      where in_channels = 2 * C_state (10 for Sokoban, 50 for Sliding-Tile).
     """
-    def __init__(self, dim: int = 10):
+    def __init__(self, dim: int = 10, in_channels: int = 10):
         super().__init__()
         self.dim = dim
-        in_c = 10  # 5 channels state + 5 channels goal
+        self.in_channels = in_channels
+        in_c = in_channels
+        att_cat_c = 240 + in_c  # 60 (att) + 180 (pos) + in_c (raw input)
         
         # 7 Conv layers (64 filters each) with DenseNet-like concat of raw input
         self.conv1 = nn.Conv2d(in_c, 64, kernel_size=3, padding=1)
@@ -102,29 +130,28 @@ class ChrestienHeuristicNet(nn.Module):
         self.pos1 = PositionalEncoding2D(180, dim, dim)
         
         # Block 2
-        # Input channels: 60 (att) + 180 (pos) + 10 (raw input) = 250
-        self.conv9 = nn.Conv2d(250, 180, kernel_size=3, padding=1)
+        self.conv9 = nn.Conv2d(att_cat_c, 180, kernel_size=3, padding=1)
         self.att2 = AttentionAugmentation2D(180, depth_k=60, depth_v=60, num_heads=2)
         self.pos2 = PositionalEncoding2D(180, dim, dim)
         
         # Block 3
-        self.conv10 = nn.Conv2d(250, 180, kernel_size=3, padding=1)
+        self.conv10 = nn.Conv2d(att_cat_c, 180, kernel_size=3, padding=1)
         self.att3 = AttentionAugmentation2D(180, depth_k=60, depth_v=60, num_heads=2)
         self.pos3 = PositionalEncoding2D(180, dim, dim)
         
         # Block 4
-        self.conv11 = nn.Conv2d(250, 180, kernel_size=3, padding=1)
+        self.conv11 = nn.Conv2d(att_cat_c, 180, kernel_size=3, padding=1)
         self.att4 = AttentionAugmentation2D(180, depth_k=60, depth_v=60, num_heads=2)
         self.pos4 = PositionalEncoding2D(180, dim, dim)
         
         # Dense Head
         self.gap = nn.AdaptiveAvgPool2d(1)
-        self.fc1 = nn.Linear(250, 256)
+        self.fc1 = nn.Linear(att_cat_c, 256)
         self.fc2 = nn.Linear(256, 1)
 
-    def forward(self, state: torch.Tensor, goal: torch.Tensor) -> torch.Tensor:
-        # state, goal: (B, 5, H, W)
-        inp = torch.cat([state, goal], dim=1)  # (B, 10, H, W)
+    def forward(self, state: torch.Tensor, goal: torch.Tensor, mc_dropout_p: float = 0.0) -> torch.Tensor:
+        # state, goal: (B, C_state, H, W)
+        inp = torch.cat([state, goal], dim=1)  # (B, in_channels, H, W)
         
         x = F.relu(self.conv1(inp))
         x = F.relu(self.conv2(torch.cat([x, inp], dim=1)))
@@ -137,7 +164,7 @@ class ChrestienHeuristicNet(nn.Module):
         # Att 1
         p = F.relu(self.conv8(torch.cat([x, inp], dim=1)))
         att15 = self.att1(p)
-        att15 = torch.cat([att15, self.pos1(p), inp], dim=1)  # (B, 250, H, W)
+        att15 = torch.cat([att15, self.pos1(p), inp], dim=1)
         
         # Att 2
         q = F.relu(self.conv9(att15))
@@ -152,10 +179,12 @@ class ChrestienHeuristicNet(nn.Module):
         # Att 4
         s = F.relu(self.conv11(att17))
         att18 = self.att4(s)
-        att18 = torch.cat([att18, self.pos4(s), inp], dim=1)  # (B, 250, H, W)
+        att18 = torch.cat([att18, self.pos4(s), inp], dim=1)
         
         # Head
-        f2 = self.gap(att18).flatten(1)  # (B, 250)
+        f2 = self.gap(att18).flatten(1)
         d2 = F.relu(self.fc1(f2))
+        if mc_dropout_p > 0.0:
+            d2 = F.dropout(d2, p=mc_dropout_p, training=True)
         out = self.fc2(d2)  # (B, 1)
         return out.squeeze(-1)
