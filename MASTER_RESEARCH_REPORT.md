@@ -254,15 +254,18 @@ $$f(s) = g(s) + \Big(\mu_p(s) + \kappa \cdot \sigma_p(s)\Big) \cdot C$$
 
 Instead of falling back to a blind classical heuristic when models disagree, this directly **penalizes states where models disagree**, pushing them to the back of the priority queue.
 
-### 7.3 Preliminary Results: Risk-Averse + Deadlock Pruning
+### 7.3 Full 100-Map 5-Box Pure Neural Risk-Averse Benchmark (CUDA RTX 3050, No Symbolic Pruning)
+Evaluated all 100 5-box OOD maps strictly without symbolic deadlock pruning (`prune_deadlocks=False`, 360s timeout) to test purely domain-general algorithmic search:
 
-| Map ID | Raw Ensemble (5 Models) | Deadlock-Pruned Ensemble | Risk-Averse + Deadlock Pruning |
-| :---: | :---: | :---: | :---: |
-| Map 0 | 268 exp (8.40s) | 269 exp (5.58s) | **210 exp (4.14s)** — 21.6% reduction |
-| **Map 1** | **FAILED (5,000 exp cap)** | **FAILED (5,000 exp cap)** | **SOLVED (3,571 exp, 79.92s)** |
-| Map 2 | **82 exp (1.67s)** | **78 exp (1.56s)** | 97 exp (1.92s) |
+| Algorithm | Solve Rate | Mean Exp. | Median Exp. | 95th % Exp. | Max Exp. | Mean Cost | Mean Time |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Normal 5-Model Ensemble (Pure Mean) | 93.0% (93/100) | 1,407.6 | 559.0 | 7,131.8 | 12,318 | 40.7 | 42.95s |
+| **Risk-Averse Deep Ensemble ($\kappa=1.0$)** | **94.0% (94/100)** | **1,354.8** | **393.0** | **5,446.3** | **10,158** | 41.6 | **40.67s** |
+| Calibrated Conf-Aware Ensemble ($\beta=2.5$) | 92.0% (92/100) | 1,391.6 | 501.5 | 7,481.5 | 10,025 | 40.5 | 42.02s |
 
-> Map 1 converted from a hard timeout to a verified solution.
+- **Head-to-Head vs. Pure Mean (93 Common Maps):** **30.05% fewer median expansions** ($391.0$ vs. $559.0$), **9.47% fewer mean expansions** ($1,274.3$ vs. $1,407.6$), **68W / 1T / 24L (73.9% win rate)**, Wilcoxon $p = 0.00225$. Solved **Map 62** (8,845 exp) where Pure Mean timed out.
+- **Head-to-Head vs. Calibrated Convex Gating (92 Common Maps):** **22.23% fewer median expansions** ($390.0$ vs. $501.5$), **13.56% fewer mean expansions** ($1,202.9$ vs. $1,391.6$), **65W / 1T / 26L (71.4% win rate)**, Wilcoxon $p = 1.56 \times 10^{-4}$. Solved **Maps 22 and 55** where Convex Gating timed out due to deceptive Manhattan fallback.
+
 
 ### 7.4 Mechanistic Interpretability: What Does $\sigma_h(s)$ Actually Mean?
 500 search states sampled across 5 maps with attention weight extraction from all 4 attention blocks:
@@ -343,12 +346,13 @@ def train_minibatches(x_train, y_train, train_loss, search_alg, ...):
 | 4 | MC-Dropout Hybrid A\* (Paper Model) | `finalSok3` (PT) | 90% | 1,971 | 568 | 6,922 | 38.3 | ~0.85 |
 | 5 | Single Scratch Model #0 | Ensemble M0 (PT) | 93% | 8,740 | 1,436 | 25,827 | 37.5 | — |
 | 6 | MC-Dropout on Scratch #0 | Ensemble M0 (PT) | 77% | 7,907 | 3,042 | 20,360 | 36.4 | 0.803 |
-| 7 | Normal 5-Model Ensemble | 5x Ensemble (PT) | 95% | 1,665 | 591 | 5,672 | 41.1 | 1.000 |
-| 8 | Conf-Aware Ensemble ($\beta$=2.5) | 5x Ensemble (PT) | 95% | 1,615 | 549 | 4,602 | 41.0 | 0.982 |
-| 9 | Calibrated Conf-Aware Ensemble | 5x Ensemble (PT) | 94% | 1,554 | 513 | **4,698** | 40.8 | 0.930 |
-| 10 | Risk-Averse + Deadlock Prune* | 5x Ensemble (PT) | — | — | — | — | — | — |
+| 7 | Normal 5-Model Ensemble (XPU) | 5x Ensemble (PT) | 95% | 1,665 | 591 | 5,672 | 41.1 | 1.000 |
+| 8 | Conf-Aware Ensemble ($\beta$=2.5, XPU) | 5x Ensemble (PT) | 95% | 1,615 | 549 | 4,602 | 41.0 | 0.982 |
+| 9 | Normal 5-Model Ensemble (CUDA RTX 3050) | 5x Ensemble (PT) | 93% | 1,408 | 559 | 4,024 | 40.7 | 1.000 |
+| 10 | Calibrated Conf-Aware Ensemble (CUDA RTX 3050) | 5x Ensemble (PT) | 92% | 1,392 | 502 | 4,066 | 40.5 | 0.930 |
+| 11 | **Risk-Averse Deep Ensemble ($\kappa$=1.0, CUDA RTX 3050)** | **5x Ensemble (PT)** | **94%** | **1,355** | **393** | **4,122** | 41.6 | **1.000** |
 
-*\*Preliminary (3 maps only). Full 100-map benchmark pending.*
+*Note: Rows 9–11 were evaluated side-by-side on NVIDIA RTX 3050 Laptop GPU with `prune_deadlocks=False` (pure domain-general search).*
 
 ---
 
@@ -371,8 +375,9 @@ def train_minibatches(x_train, y_train, train_loss, search_alg, ...):
 | Paper Learned A\* | 71% | 368 | 1,384 | 3,898 | 8,354 | 10,230 | 20,449 |
 | MC-Dropout A\* | 90% | 178 | 568 | 1,968 | 6,922 | 9,188 | 24,190 |
 | Single Scratch #0 | 93% | 368 | 1,436 | 6,724 | 25,827 | 42,939 | 52,053 |
-| Normal Ensemble | **95%** | **170** | 591 | **1,504** | 5,672 | 8,412 | 26,128 |
-| Conf-Aware Ensemble | **95%** | 173 | **549** | 1,550 | **4,602** | **8,079** | **23,171** |
+| Normal Ensemble (CUDA) | 93% | **165** | 559 | 1,405 | **4,024** | 7,132 | 12,318 |
+| Calibrated Conf-Aware (CUDA) | 92% | 172 | 502 | **1,216** | 4,066 | 7,482 | **10,025** |
+| **Risk-Averse Ensemble ($\kappa$=1.0, CUDA)** | **94%** | 168 | **393** | 1,676 | 4,122 | **5,446** | 10,158 |
 
 ### 10.3 Head-to-Head Win Rates & Expansion Ratios
 
@@ -384,13 +389,15 @@ def train_minibatches(x_train, y_train, train_loss, search_alg, ...):
 | Conf-Aware Ens vs. Scratch #0 | **144 (72.0%)** | 6 | 50 | **0.533** | **0.649** | $8.52 \times 10^{-18}$ |
 | Scratch #0 vs. Paper A\* | **138 (69.0%)** | 2 | 60 | **0.715** | **0.540** | $1.05 \times 10^{-9}$ |
 
-#### 5-Box (71 commonly solved maps)
+#### 5-Box (Commonly Solved Maps)
 
-| Comparison | Wins | Ties | Losses | Geo. Mean Ratio | Median Ratio | Wilcoxon $p$ |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| Conf-Aware Ens vs. Paper A\* | **63 (88.7%)** | 0 | 8 | **0.270** | **0.266** | $1.51 \times 10^{-11}$ |
-| Conf-Aware Ens vs. Scratch #0 | **52 (73.2%)** | 0 | 19 | **0.477** | **0.525** | $6.38 \times 10^{-7}$ |
-| Scratch #0 vs. Paper A\* | **48 (67.6%)** | 0 | 23 | **0.565** | **0.498** | $3.10 \times 10^{-4}$ |
+| Comparison | Common Maps | Wins | Ties | Losses | Geo. Mean Ratio | Median Ratio | Wilcoxon $p$ |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Risk-Averse ($\kappa$=1.0) vs. Pure Mean (CUDA)** | 93 | **68 (73.9%)** | 1 | 24 | **0.893** | **0.860** | $2.25 \times 10^{-3}$ |
+| **Risk-Averse ($\kappa$=1.0) vs. Calibrated Convex (CUDA)** | 92 | **65 (71.4%)** | 1 | 26 | **0.880** | **0.817** | $1.56 \times 10^{-4}$ |
+| Conf-Aware Ens vs. Paper A\* (XPU) | 71 | **63 (88.7%)** | 0 | 8 | **0.270** | **0.266** | $1.51 \times 10^{-11}$ |
+| Conf-Aware Ens vs. Scratch #0 (XPU) | 71 | **52 (73.2%)** | 0 | 19 | **0.477** | **0.525** | $6.38 \times 10^{-7}$ |
+| Scratch #0 vs. Paper A\* (XPU) | 71 | **48 (67.6%)** | 0 | 23 | **0.565** | **0.498** | $3.10 \times 10^{-4}$ |
 
 ### 10.4 Gain Decomposition (Three Factors)
 
@@ -513,9 +520,8 @@ Total Parameters: ~7.47M per model
 ## 14. Open Questions & Next Steps
 
 ### 14.1 Immediate Priority: Full 100-Map 5-Box Risk-Averse Benchmark
-- [ ] Run the full 100-map 5-box benchmark with Risk-Averse + Deadlock Pruning ($\kappa = 1.0$)
-- [ ] Compare head-to-head against Normal Ensemble, Calibrated Gating, and MC-Dropout baselines
-- [ ] Estimate: ~1.5-2 hours runtime on Intel Arc
+- [x] **Run the full 100-map 5-box benchmark with Pure Risk-Averse Search ($\kappa = 1.0$, no symbolic pruning)** — COMPLETED on CUDA (RTX 3050). Achieved **94% solve rate** (beating both Pure Mean at 93% and Calibrated Convex Gating at 92%), **30.05% fewer median expansions** than Pure Mean ($391.0$ vs. $559.0$, $p = 0.00225$, **73.9% win rate**), and **22.23% fewer median expansions** than Calibrated Convex Gating ($p = 1.56 \times 10^{-4}$, **71.4% win rate**). Full data in `results/riskaverse_5box_benchmark_results.csv` and `results/riskaverse_5box_benchmark_report.md`.
+
 
 ### 14.2 Hyperparameter Sweep
 - [ ] Grid search $\kappa \in \{0.5, 1.0, 1.5, 2.0\}$ on the 5-box benchmark
