@@ -19,9 +19,10 @@ This guide provides step-by-step instructions to train the **5-Model Deep Ensemb
    ```bash
    !python -u tools/train_sliding_tile_kaggle.py \
        --model_id all \
-       --epochs 25 \
+       --steps 20000 \
        --lr 3e-4 \
-       --num_trajectories 2400 \
+       --log_interval 500 \
+       --val_interval 1000 \
        --zip_output /kaggle/working/slidingtile_checkpoints.zip
    ```
 5. Once completed, download the zipped checkpoints in the third cell:
@@ -37,20 +38,20 @@ This guide provides step-by-step instructions to train the **5-Model Deep Ensemb
 
 | Aspect | Original Paper (`train.py` / `astarlstar.py`) | Our Kaggle Implementation (`train_sliding_tile_kaggle.py`) |
 | :--- | :--- | :--- |
-| **Dataset** | 2,000 $5\times 5$ boards (`stile.txt`) | Exact 2,000 $5\times 5$ boards from `stile.txt` + multi-scale biased goal scrambles covering step depths $12\dots 140$ |
-| **Loss Function** | $\mathcal{L}^*$ Pairwise Ranking Loss:<br>$\text{softplus}\big((g_{\text{on}} + h_{\text{on}}) - (g_{\text{off}} + h_{\text{off}})\big)$ | Exact $\mathcal{L}^*$ pairwise sibling ranking + trajectory monotonicity regularizer along optimal paths |
-| **Optimizer** | `Adam()` re-instantiated inside inner loop on every update (**Bug: zero-momentum SGD**) | **Persistent PyTorch `AdamW`** with full momentum ($m_t, v_t$), weight decay ($10^{-5}$), and `CosineAnnealingLR` |
-| **Architecture** | 7-Conv DenseNet + 4 Relative Attention Blocks + GAP + Dense 256 + Dense 1 | Exact PyTorch `ChrestienHeuristicNet(dim=5, in_channels=50)` |
-| **GPU Efficiency** | Slow single-state Python loop in TensorFlow | **Batched PyTorch tensor operations with Mixed Precision (`torch.amp.autocast`)** on Tesla T4 |
-| **Ensemble Diversity**| Single model only | **5-Model Deep Ensemble (`m0`..`m4`)**: Model 0 is trained on 100% data; Models 1..4 use 80% bootstrap bagging, independent seeds, and distinct margin scales |
+| **Training Steps** | 20,000 steps (`range(20000)`) | Exact 20,000 steps trajectory-by-trajectory matching paper |
+| **Loss Function** | $\mathcal{L}^*$ Pairwise Sibling Ranking:<br>$\text{softplus}\big((g_{\text{on}} + h_{\text{on}}) - (g_{\text{off}} + h_{\text{off}})\big)$ | Exact $\mathcal{L}^*$ pairwise sibling ranking + path monotonicity regularizer in numerically stable FP32 |
+| **Precision** | FP32 | Exact FP32 with softplus clamping $[-25, 25]$ (guaranteed 0 NaNs) |
+| **Optimizer** | `Adam()` re-instantiated on every step (**Bug: zero-momentum SGD**) | **Persistent PyTorch `AdamW`** with momentum, weight decay ($10^{-5}$), and `CosineAnnealingLR` |
+| **Architecture** | 7-Conv DenseNet + 4 Attention Blocks + GAP + Dense 256 + Dense 1 | Exact PyTorch `ChrestienHeuristicNet(dim=5, in_channels=50)` |
+| **Ensemble Training**| Single model only | **5-Model Deep Ensemble (`m0`..`m4`)**: All models trained from scratch with independent seeds, bootstrap diversity, and distinct margin scales |
 
 ---
 
 ## 3. Estimated Runtimes on Kaggle T4
 
-- **Data caching (2,400 trajectories):** $\sim 2\text{--}3$ minutes (run once and cached to disk).
-- **Training per model (25 epochs with AMP):** $\sim 12\text{--}18$ minutes per model.
-- **Total time for all 5 models:** $\sim 60\text{--}90$ minutes (well within Kaggle's 12-hour session limit).
+- **Speed per model on Tesla T4:** $\approx 25\text{--}30$ trajectory steps/sec.
+- **Training per model (20,000 steps):** $\approx 11\text{--}13$ minutes per model.
+- **Total time for all 5 models:** $\approx 55\text{--}65$ minutes (well within Kaggle's 12-hour session limit).
 
 ---
 
