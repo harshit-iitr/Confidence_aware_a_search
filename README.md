@@ -14,6 +14,12 @@ This project builds upon, replicates, and rigorously evaluates against:
 > **Master Research Report & Progress Tracker:**  
 > For the comprehensive chronological record of all experiments, benchmarks, gain factor deconstructions, paper bug discoveries, mechanistic interpretability results, and next steps, see [**`MASTER_RESEARCH_REPORT.md`**](file:///d:/IITR/DAC-203_project/MASTER_RESEARCH_REPORT.md).
 
+> [!TIP]
+> **Active Running Tasks & Night Run Guides:**
+> - **For 6x6 Benchmark (Friend's Setup):** See [**`FRIEND_INSTRUCTIONS.md`**](file:///d:/IITR/DAC-203_project/FRIEND_INSTRUCTIONS.md) — ready-to-run 1-command instructions.
+> - **For 7x7 Benchmark (Local Run):** Run `python tools/run_strict_stile7_benchmark.py --timeout 360 --max_boards 200`.
+> - **For Kaggle Deep Ensemble Training:** See [**`docs/KAGGLE_TRAINING_GUIDE.md`**](file:///d:/IITR/DAC-203_project/docs/KAGGLE_TRAINING_GUIDE.md) and [**`kaggle_slidingtile_training.ipynb`**](file:///d:/IITR/DAC-203_project/kaggle_slidingtile_training.ipynb).
+
 ---
 
 ## 1. Motivation & Core Concept
