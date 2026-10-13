@@ -1,0 +1,16 @@
+map_id,algorithm,solved,expansions,path_cost,time_sec,mean_variance,plan_length,plan_verified
+2,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,3096,55.0,64.9096,0.0028,55,True
+2,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,18675,57.0,326.0551,6.0912,57,True
+10,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,949,41.0,19.2084,0.0062,41,True
+10,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,634,41.0,12.4684,2.1172,41,True
+12,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,6989,59.0,140.9706,0.0018,59,True
+12,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,8610,54.0,181.9602,1.936,54,True
+14,"Earlier Risk-Averse (Percentile, kappa=1.0)",False,14387,inf,360.011,0.0045,0,False
+14,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",False,19524,inf,360.0026,2.6475,0,False
+22,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,7068,56.0,149.7243,0.0022,56,True
+22,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,10897,54.0,225.443,3.8945,54,True
+26,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,2231,52.0,45.4433,0.0029,52,True
+26,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,5728,52.0,107.7919,1.5961,52,True
+27,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,401,52.0,7.7837,0.004,52,True
+27,"Goal-Anchored Risk-Averse (h(s,g)-h(g,g), kappa=1.0, scale=1.5)",True,8334,50.0,153.1173,1.9425,50,True
+34,"Earlier Risk-Averse (Percentile, kappa=1.0)",True,4572,56.0,103.7593,0.0022,56,True

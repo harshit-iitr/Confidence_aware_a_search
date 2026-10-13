@@ -25,5 +25,9 @@ ENV/
 *.tmp
 .system_generated/
 
-# Large Checkpoint Binaries (optional to track via Git LFS if needed)
-# *.pt
+# Large Checkpoint Binaries and Caches
+*.zip
+data/slidingtile/
+checkpoints/slidingtile_test/
+checkpoints/slidingtile/lstar_groups_5x5.pt
+checkpoints/slidingtile/stile_ens_m*.pt
