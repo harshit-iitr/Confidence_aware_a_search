@@ -173,5 +173,5 @@ def encode_boards_25ch(boards: List[np.ndarray], device: torch.device) -> torch.
         mapped = lut[arr]
         oh = _EYE_25[mapped]  # (B, dim, dim, 25)
         tensor = torch.from_numpy(oh.transpose(0, 3, 1, 2).copy()).to(device)
-        return torch.nn.functional.interpolate(tensor, size=(5, 5), mode="bilinear", align_corners=True)
+        return tensor.float()
 

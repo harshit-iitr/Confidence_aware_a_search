@@ -124,7 +124,7 @@ def run_stile7_benchmark():
     parser.add_argument("--ckpt", type=str, default="checkpoints/slidingtile/stile_paper_pytorch.pt")
     parser.add_argument("--csv_output", type=str, default="results/sliding_tile_7x7_strict_paper_benchmark.csv")
     parser.add_argument("--report_output", type=str, default="results/sliding_tile_7x7_strict_paper_report.md")
-    parser.add_argument("--timeout", type=float, default=360.0, help="Per-board timeout in seconds (default: 360s = 6 mins)")
+    parser.add_argument("--timeout", type=float, default=180.0, help="Per-board timeout in seconds (default: 180s = 3 mins)")
     parser.add_argument("--max_boards", type=int, default=200, help="Number of boards to benchmark")
     parser.add_argument("--start_idx", type=int, default=0, help="Start board index")
     parser.add_argument("--end_idx", type=int, default=None, help="End board index")
