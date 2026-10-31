@@ -1,0 +1,39 @@
+"""Build an explicit allowlisted Kaggle payload; never include credentials."""
+import argparse
+import json
+from pathlib import Path
+import sys
+import zipfile
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from benchmarks.sokoban7_protocol import SOURCE_FILES, CHECKPOINTS, read_boards, sha256
+
+
+def package(output):
+    output = Path(output)
+    dataset = ROOT / 'data/sokoban_7box_original_test.txt'
+    read_boards(dataset)
+    provenance = dataset.with_suffix('.provenance.json')
+    if json.loads(provenance.read_text())['dataset_sha256'] != sha256(dataset):
+        raise ValueError('Frozen dataset hash mismatch')
+    files = sorted(set(SOURCE_FILES + CHECKPOINTS + [
+        'LICENSE', 'requirements.txt', 'docs/SOKOBAN7_ORIGINAL_PROTOCOL.md',
+        'tools/generate_sokoban7_original.py', 'tools/package_sokoban7_original.py',
+        'data/sokoban_7box_original_test.txt',
+        'data/sokoban_7box_original_test.provenance.json',
+    ]))
+    manifest = {p: sha256(ROOT / p) for p in files}
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(output, mode='x', compression=zipfile.ZIP_DEFLATED) as archive:
+        for relative in files:
+            archive.write(ROOT / relative, relative)
+        archive.writestr('BUNDLE_SHA256.json', json.dumps(manifest, indent=2))
+    print(f'Bundle: {output}\nBytes: {output.stat().st_size}\nSHA256: {sha256(output)}')
+    print('No upload or cloud session has been started.')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT / 'output/sokoban7_original_protocol.zip')
+    package(parser.parse_args().output)

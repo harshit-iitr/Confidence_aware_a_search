@@ -229,3 +229,25 @@ If you use this codebase or methodology in your research, please cite:
   year={2023}
 }
 ```
+
+
+## Seven-box Sokoban: original-protocol transfer
+
+The new seven-box runner reuses the original checkpoint and five-box search
+functions for **11 distinct configurations**. Every method receives **360 s and
+1,000,000 expansions per puzzle**, on a fixed 100-map 10x10 seven-box dataset.
+This budget intentionally differs from the historical five-box baseline suite.
+No training or checkpoint conversion is performed.
+
+See [the protocol and run guide](docs/SOKOBAN7_ORIGINAL_PROTOCOL.md), or open
+[the Kaggle notebook](kaggle_sokoban7_original.ipynb). Generation, if needed:
+
+```bash
+pip install gym-sokoban==0.0.6
+python tools/generate_sokoban7_original.py
+python benchmarks/run_sokoban7_benchmark.py run --device cuda:0 --start-map 1 --end-map 5 --output output/7box/maps001_005
+```
+
+The runner saves replayable plans, verifies them independently, fingerprints code,
+data and checkpoints, and supports resumable shards. A five-map shard has at most
+5.5 search-hours; the full suite has a worst-case allowance of 110 search-hours.

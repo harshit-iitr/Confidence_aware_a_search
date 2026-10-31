@@ -31,3 +31,7 @@ data/slidingtile/
 checkpoints/slidingtile_test/
 checkpoints/slidingtile/lstar_groups_5x5.pt
 checkpoints/slidingtile/stile_ens_m*.pt
+
+# Seven-box benchmark local payloads and resumable outputs
+/output/
+/results/sokoban7_original/
