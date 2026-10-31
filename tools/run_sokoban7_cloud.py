@@ -9,6 +9,8 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from tools.report_sokoban7_astar import ASTAR_METHODS, compile_reports
 
 
 def main():
@@ -25,6 +27,7 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     dataset = ROOT / 'data/sokoban_7box_original_test.txt'
     status = {'phase': 'setup', 'range': [args.start_map, args.end_map],
+              'profile': 'nine-astar-configurations', 'methods': list(ASTAR_METHODS),
               'started_utc': datetime.now(timezone.utc).isoformat()}
     def update(phase):
         status['phase'] = phase
@@ -48,8 +51,10 @@ def main():
             'run', '--device', 'cuda:0', '--dataset', str(dataset),
             '--start-map', str(args.start_map), '--end-map', str(args.end_map),
             '--wall-hours', str(remaining), '--output', str(output / 'run'),
+            '--methods', *ASTAR_METHODS,
         ], cwd=ROOT, check=True, timeout=max(1, deadline - time.monotonic() + 60))
-        update('session-finished-check-run-summary-for-completion')
+        compile_reports([output / 'run'], output / 'astar_analysis', dataset)
+        update('session-finished-check-astar-analysis-for-completion')
     except BaseException:
         update('interrupted-or-failed-artifacts-preserved')
         raise

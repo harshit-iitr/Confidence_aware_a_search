@@ -20,6 +20,46 @@ from benchmarks.sokoban7_protocol import (
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_astar_report_completes_without_gbfs_and_preserves_extra_rows(self):
+        from tools.report_sokoban7_astar import ASTAR_METHODS, compile_reports
+        manifest = {'num_maps': 2, 'base_seed': 42}
+        records = []
+        for map_id, method in [(1, m) for m in ASTAR_METHODS] + [(1, 'paper_gbfs'), (2, 'paper_astar')]:
+            records.append({'map_id': map_id, 'method': method, 'protocol_id': fingerprint(manifest),
+                            'seed': runner.seed_for(42, map_id, method), 'solved': True,
+                            'verified': True, 'cost': 1, 'actions': [4], 'expansions': 2,
+                            'time_sec': 0.1})
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / 'manifest.json').write_text(json.dumps(manifest))
+            raw = ''.join(json.dumps(r) + '\n' for r in records)
+            (folder / 'results.jsonl').write_text(raw)
+            result = compile_reports([folder], folder / 'analysis', boards=[smoke_board(), smoke_board()])
+            self.assertEqual(result['complete_maps'], [1])
+            self.assertEqual(len(result['summary']), 9)
+            self.assertEqual(result['ignored_gbfs_records'], 1)
+            self.assertEqual(result['unbalanced_astar_records'], 1)
+            self.assertEqual((folder / 'results.jsonl').read_text(), raw)
+
+    def test_cloud_schedules_only_astar_and_reuses_existing_dataset(self):
+        from tools import run_sokoban7_cloud as cloud
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'project'
+            (root / 'data').mkdir(parents=True)
+            (root / 'data/sokoban_7box_original_test.txt').write_text('already frozen')
+            with patch.object(cloud, 'ROOT', root), \
+                    patch.object(cloud.subprocess, 'run') as run, \
+                    patch.object(cloud, 'compile_reports'), \
+                    patch.object(torch.cuda, 'is_available', return_value=True), \
+                    patch.object(torch.cuda, 'get_device_name', return_value='test'), \
+                    patch.object(sys, 'argv', ['cloud', '--output', str(Path(tmp) / 'out')]):
+                cloud.main()
+                self.assertEqual(run.call_count, 1)
+                command = run.call_args.args[0]
+                methods = command[command.index('--methods') + 1:]
+                self.assertEqual(len(methods), 9)
+                self.assertTrue(all('gbfs' not in m for m in methods))
+
     def test_generator_retries_warning_and_resumes_without_losing_maps(self):
         from tools import generate_sokoban7_original as generator
         rng = np.random.default_rng(123)

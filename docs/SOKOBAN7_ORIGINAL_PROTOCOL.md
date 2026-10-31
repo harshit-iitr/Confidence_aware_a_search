@@ -1,5 +1,22 @@
 # Seven-box transfer: original repository protocol
 
+**Active cloud profile: nine A* configurations only.** After the first five-map
+shard, the user discontinued deterministic GBFS and MC GBFS. Those completed
+records are preserved, but no future cloud shard schedules them. The search
+engines, protocol manifest, seeds, dataset and budgets remain unchanged, so the
+first five maps' A* records can be combined with later A* shards. Use
+`tools/report_sokoban7_astar.py` for the active comparison; the original runner's
+11-method summary deliberately still requires all 11 historical methods.
+
+```bash
+python tools/report_sokoban7_astar.py results/sokoban7_original/maps001_005 output/next_shard/run --output output/7box_astar_combined
+```
+
+Read `astar_analysis/report.md` in cloud outputs. Five maps now have a maximum
+4.5 search-hours (nine methods); the full 100-map A* comparison has a maximum
+90 search-hours. The method inventory below documents the original 11-method
+capability, including the two now-discontinued GBFS variants.
+
 This evaluates the original five-box implementations on 100 frozen seven-box
 Sokoban puzzles on 10x10 grids. It reuses `finalSok3_pytorch.pt` and ensemble
 members 0 through 4. There is no training or checkpoint conversion. The existing

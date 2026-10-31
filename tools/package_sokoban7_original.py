@@ -27,6 +27,7 @@ def package(output, generate_in_cloud=False):
         'Optimize-Planning-Heuristics-to-Rank/LICENSE', 'requirements.txt', 'docs/SOKOBAN7_ORIGINAL_PROTOCOL.md',
         'tools/generate_sokoban7_original.py', 'tools/package_sokoban7_original.py',
         'tools/run_sokoban7_cloud.py',
+        'tools/report_sokoban7_astar.py',
     ] + data_files))
     manifest = {p: sha256(ROOT / p) for p in files}
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -40,7 +41,7 @@ def package(output, generate_in_cloud=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / 'output/sokoban7_original_protocol.zip')
+    parser.add_argument('--output', type=Path, default=ROOT / 'output/sokoban7_astar_frozen.zip')
     parser.add_argument('--generate-in-cloud', action='store_true')
     args = parser.parse_args()
     package(args.output, args.generate_in_cloud)

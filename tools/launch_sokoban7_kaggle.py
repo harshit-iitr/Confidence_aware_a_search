@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--credentials', type=Path, required=True)
-    parser.add_argument('--bundle', type=Path, default=ROOT / 'output/sokoban7_original_protocol.zip')
+    parser.add_argument('--bundle', type=Path, default=ROOT / 'output/sokoban7_astar_frozen.zip')
     parser.add_argument('--start-map', type=int, default=1)
     parser.add_argument('--end-map', type=int, default=5)
     parser.add_argument('--status-only', action='store_true')
@@ -39,6 +39,7 @@ def main():
     receipt = json.loads(receipt_path.read_text()) if receipt_path.exists() else {
         'dataset': dataset_ref, 'kernel': kernel_ref, 'private': True,
         'bundle_sha256': bundle_hash, 'range': [args.start_map, args.end_map],
+        'profile': 'nine-astar-configurations',
         'status': 'prepared', 'url': f'https://www.kaggle.com/code/{kernel_ref}'}
     if receipt['bundle_sha256'] != bundle_hash or receipt['kernel'] != kernel_ref:
         raise ValueError('Receipt does not match this bundle/account/range')

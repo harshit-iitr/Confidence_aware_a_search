@@ -233,6 +233,8 @@ If you use this codebase or methodology in your research, please cite:
 
 ## Seven-box Sokoban: original-protocol transfer
 
+Active Kaggle runs use nine A* configurations; GBFS was discontinued after maps 1–5.
+
 The new seven-box runner reuses the original checkpoint and five-box search
 functions for **11 distinct configurations**. Every method receives **360 s and
 1,000,000 expansions per puzzle**, on a fixed 100-map 10x10 seven-box dataset.
