@@ -10,19 +10,24 @@ sys.path.insert(0, str(ROOT))
 from benchmarks.sokoban7_protocol import SOURCE_FILES, CHECKPOINTS, read_boards, sha256
 
 
-def package(output):
+def package(output, generate_in_cloud=False):
     output = Path(output)
     dataset = ROOT / 'data/sokoban_7box_original_test.txt'
-    read_boards(dataset)
     provenance = dataset.with_suffix('.provenance.json')
-    if json.loads(provenance.read_text())['dataset_sha256'] != sha256(dataset):
-        raise ValueError('Frozen dataset hash mismatch')
+    data_files = []
+    if dataset.exists() or provenance.exists():
+        read_boards(dataset)
+        if json.loads(provenance.read_text())['dataset_sha256'] != sha256(dataset):
+            raise ValueError('Frozen dataset hash mismatch')
+        data_files = ['data/sokoban_7box_original_test.txt',
+                      'data/sokoban_7box_original_test.provenance.json']
+    elif not generate_in_cloud:
+        raise FileNotFoundError('Generate the frozen dataset first, or explicitly use --generate-in-cloud')
     files = sorted(set(SOURCE_FILES + CHECKPOINTS + [
-        'LICENSE', 'requirements.txt', 'docs/SOKOBAN7_ORIGINAL_PROTOCOL.md',
+        'Optimize-Planning-Heuristics-to-Rank/LICENSE', 'requirements.txt', 'docs/SOKOBAN7_ORIGINAL_PROTOCOL.md',
         'tools/generate_sokoban7_original.py', 'tools/package_sokoban7_original.py',
-        'data/sokoban_7box_original_test.txt',
-        'data/sokoban_7box_original_test.provenance.json',
-    ]))
+        'tools/run_sokoban7_cloud.py',
+    ] + data_files))
     manifest = {p: sha256(ROOT / p) for p in files}
     output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(output, mode='x', compression=zipfile.ZIP_DEFLATED) as archive:
@@ -36,4 +41,6 @@ def package(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'output/sokoban7_original_protocol.zip')
-    package(parser.parse_args().output)
+    parser.add_argument('--generate-in-cloud', action='store_true')
+    args = parser.parse_args()
+    package(args.output, args.generate_in_cloud)

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import types
 import unittest
 from unittest.mock import patch, MagicMock
 
@@ -19,6 +20,38 @@ from benchmarks.sokoban7_protocol import (
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_generator_retries_warning_and_resumes_without_losing_maps(self):
+        from tools import generate_sokoban7_original as generator
+        rng = np.random.default_rng(123)
+        boards = []
+        for _ in range(100):
+            board = np.zeros((10, 10), dtype=np.int32)
+            board[1:9, 1:9] = 1
+            positions = rng.choice(64, 15, replace=False)
+            for index, position in enumerate(positions):
+                r, c = divmod(int(position), 8)
+                board[r + 1, c + 1] = 4 if index < 7 else (2 if index < 14 else 5)
+            boards.append((None, board, None))
+        room = types.ModuleType('gym_sokoban.envs.room_utils')
+        room.generate_room = MagicMock(side_effect=[boards[0], KeyboardInterrupt()])
+        modules = {name: types.ModuleType(name) for name in ['gym_sokoban', 'gym_sokoban.envs']}
+        modules['gym_sokoban.envs.room_utils'] = room
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(sys.modules, modules), \
+                patch.object(generator.importlib.metadata, 'version', return_value='test'), \
+                patch('builtins.print'):
+            output = Path(tmp) / 'test.txt'
+            with self.assertRaises(KeyboardInterrupt):
+                generator.generate(output)
+            self.assertFalse(output.exists())
+            progress = json.loads(output.with_suffix('.generation.json').read_text())
+            self.assertEqual(len(progress['states']), 1)
+            room.generate_room.side_effect = [RuntimeWarning('Generated Model with score == 0')] + boards[1:]
+            generator.generate(output)
+            self.assertEqual(len(read_boards(output)), 100)
+            metadata = json.loads(output.with_suffix('.provenance.json').read_text())
+            self.assertEqual(metadata['generator_exceptions']['RuntimeWarning'], 1)
+            self.assertEqual(metadata['attempts'], 101)
+
     def test_dataset_rejects_duplicates_and_wrong_box_counts(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / 'boards.txt'

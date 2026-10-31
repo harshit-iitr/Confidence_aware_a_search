@@ -103,3 +103,22 @@ the six original checkpoints, frozen data, and license; credentials are excluded
 five-map shard on CUDA, and archives results under `/kaggle/working`.
 
 No credentials, upload, or GPU launch are required to prepare this code.
+
+### Generate and freeze on Kaggle before evaluation
+
+If local generation is unfinished, build with
+`python tools/package_sokoban7_original.py --generate-in-cloud`. This explicit
+mode packages the original checkpoints and generator without a test set.
+`tools/run_sokoban7_cloud.py` then generates **all 100 maps before the first
+search**, preserving the same generation settings. Failed-generation
+`RuntimeWarning` exceptions are retried just like the original five-box script.
+Accepted maps and both RNG states are checkpointed after every attempt; a
+generation interruption can be resumed in the same environment without losing
+previously accepted maps. The final dataset and provenance are archived with
+the search results. Later shards must reuse that frozen dataset, not regenerate
+independent samples. Generation time counts against the 7.5-hour cloud allowance.
+
+The launcher accepts an explicit credentials-file path and uses its values only
+in memory. It uploads a private allowlisted dataset and launches one private
+eight-hour GPU kernel. It does not upload the credentials file. Never commit a
+key or put it in the bundle.
