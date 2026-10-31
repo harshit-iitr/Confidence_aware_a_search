@@ -16,10 +16,14 @@ def main():
     parser.add_argument('--bundle', type=Path, default=ROOT / 'output/sokoban7_astar_frozen.zip')
     parser.add_argument('--start-map', type=int, default=1)
     parser.add_argument('--end-map', type=int, default=5)
+    parser.add_argument('--session-hours', type=float, default=12.0)
+    parser.add_argument('--work-hours', type=float, default=11.75)
     parser.add_argument('--status-only', action='store_true')
     args = parser.parse_args()
     if not 1 <= args.start_map <= args.end_map <= 100:
         raise ValueError('Invalid map range')
+    if not 0 < args.work_hours < args.session_hours <= 12:
+        raise ValueError('Require 0 < work-hours < session-hours <= 12')
     # Read the supplied key in memory only. Never print or copy it into payloads.
     credentials = json.loads(args.credentials.read_text(encoding='utf-8-sig'))
     os.environ['KAGGLE_USERNAME'] = credentials['username']
@@ -40,6 +44,7 @@ def main():
         'dataset': dataset_ref, 'kernel': kernel_ref, 'private': True,
         'bundle_sha256': bundle_hash, 'range': [args.start_map, args.end_map],
         'profile': 'nine-astar-configurations',
+        'session_limit_hours': args.session_hours, 'work_allowance_hours': args.work_hours,
         'status': 'prepared', 'url': f'https://www.kaggle.com/code/{kernel_ref}'}
     if receipt['bundle_sha256'] != bundle_hash or receipt['kernel'] != kernel_ref:
         raise ValueError('Receipt does not match this bundle/account/range')
@@ -149,8 +154,9 @@ else:
     install(read, json.loads(manifests[0].read_text()))
 subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'gym-sokoban==0.0.6'], check=True)
 subprocess.run([sys.executable, '-u', str(root / 'tools/run_sokoban7_cloud.py'),
-                '--start-map', 'START_VALUE', '--end-map', 'END_VALUE'], cwd=root, check=True)
-'''.replace('START_VALUE', str(args.start_map)).replace('END_VALUE', str(args.end_map))
+                '--start-map', 'START_VALUE', '--end-map', 'END_VALUE',
+                '--wall-hours', 'WORK_VALUE'], cwd=root, check=True)
+'''.replace('START_VALUE', str(args.start_map)).replace('END_VALUE', str(args.end_map)).replace('WORK_VALUE', str(args.work_hours))
     compile(code, 'evaluate.py', 'exec')
     (kernel / 'evaluate.py').write_text(code, encoding='utf-8')
     km = {'id': kernel_ref, 'title': f'Sokoban7 original {args.start_map:03d}-{args.end_map:03d} {tag}',
@@ -162,7 +168,7 @@ subprocess.run([sys.executable, '-u', str(root / 'tools/run_sokoban7_cloud.py'),
         raise RuntimeError('Uncertain kernel submission status; inspect before retry')
     receipt['status'] = 'submitting'
     save()
-    response = api.kernels_push(str(kernel), timeout=8 * 3600)
+    response = api.kernels_push(str(kernel), timeout=int(args.session_hours * 3600))
     if getattr(response, 'error', None):
         receipt['status'] = 'submission_error'
         save()

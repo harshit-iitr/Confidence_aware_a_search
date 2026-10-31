@@ -17,6 +17,14 @@ Read `astar_analysis/report.md` in cloud outputs. Five maps now have a maximum
 90 search-hours. The method inventory below documents the original 11-method
 capability, including the two now-discontinued GBFS variants.
 
+For long continuation runs, target the complete remaining range instead of a
+five-map shard, for example `--start-map 11 --end-map 100`. The launcher defaults
+to a 12-hour session request and passes an 11.75-hour total work allowance to
+the cloud job, reserving time for artifact saving. The frozen dataset is reused.
+Actual completion depends on search difficulty and available account GPU quota;
+the launcher does not promise all remaining maps finish in one session. All
+per-puzzle budgets remain 360 seconds / 1,000,000 expansions.
+
 This evaluates the original five-box implementations on 100 frozen seven-box
 Sokoban puzzles on 10x10 grids. It reuses `finalSok3_pytorch.pt` and ensemble
 members 0 through 4. There is no training or checkpoint conversion. The existing
