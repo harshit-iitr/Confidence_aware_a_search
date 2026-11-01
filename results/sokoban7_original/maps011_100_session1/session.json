@@ -1,0 +1,20 @@
+{
+  "finished_utc": "2026-11-01T02:17:40.809043+00:00",
+  "wall_budget_stop": true,
+  "selected_methods": [
+    "classical_astar",
+    "paper_astar",
+    "paper_mc_astar",
+    "single_astar",
+    "single_mc_astar",
+    "ensemble_mean",
+    "ensemble_conf_020",
+    "ensemble_conf_050",
+    "ensemble_risk"
+  ],
+  "requested_range": [
+    11,
+    100
+  ],
+  "session_wall_sec": 42203.858540457004
+}

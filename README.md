@@ -253,3 +253,8 @@ python benchmarks/run_sokoban7_benchmark.py run --device cuda:0 --start-map 1 --
 The runner saves replayable plans, verifies them independently, fingerprints code,
 data and checkpoints, and supports resumable shards. A five-map shard has at most
 5.5 search-hours; the full suite has a worst-case allowance of 110 search-hours.
+
+
+## Consolidated Sokoban results
+
+[Three-domain results tables](SOKOBAN_RESULTS_3_5_7_BOX.md) contains the original 3-box and 5-box benchmarks and the explicitly labelled 82-map seven-box snapshot, paired comparisons, and limitations. Run `python tools/build_sokoban_results_report.py` to rebuild it from the committed evidence.

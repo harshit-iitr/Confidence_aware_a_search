@@ -1,0 +1,22 @@
+{
+  "finished_utc": "2026-10-31T12:28:11.682074+00:00",
+  "wall_budget_stop": false,
+  "selected_methods": [
+    "classical_astar",
+    "paper_astar",
+    "paper_gbfs",
+    "paper_mc_astar",
+    "paper_mc_gbfs",
+    "single_astar",
+    "single_mc_astar",
+    "ensemble_mean",
+    "ensemble_conf_020",
+    "ensemble_conf_050",
+    "ensemble_risk"
+  ],
+  "requested_range": [
+    1,
+    5
+  ],
+  "session_wall_sec": 5219.591312199
+}

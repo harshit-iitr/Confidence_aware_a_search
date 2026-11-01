@@ -1,0 +1,2666 @@
+[
+  {
+    "map_id": 46,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 67.066,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 111658,
+    "time_sec": 284.899,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 14524,
+    "time_sec": 49.613,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 40111,
+    "time_sec": 108.851,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 97353,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1672,
+    "time_sec": 20.824,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 2990,
+    "time_sec": 37.04,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 1888,
+    "time_sec": 23.506,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 46,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 1333,
+    "time_sec": 16.705,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 429202,
+    "time_sec": 28.93,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 4753,
+    "time_sec": 12.249,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 647,
+    "time_sec": 2.058,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 2967,
+    "time_sec": 8.379,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 17888,
+    "time_sec": 60.736,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 483,
+    "time_sec": 6.06,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 469,
+    "time_sec": 5.987,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 458,
+    "time_sec": 5.786,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 47,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 347,
+    "time_sec": 4.461,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 168681,
+    "time_sec": 9.897,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 5757,
+    "time_sec": 14.223,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 2014,
+    "time_sec": 6.424,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 1127,
+    "time_sec": 3.108,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 3084,
+    "time_sec": 10.499,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 329,
+    "time_sec": 4.499,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 364,
+    "time_sec": 4.865,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 348,
+    "time_sec": 4.609,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 48,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 341,
+    "time_sec": 4.595,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 76382,
+    "time_sec": 4.121,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 3879,
+    "time_sec": 9.107,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1554,
+    "time_sec": 5.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 2289,
+    "time_sec": 5.966,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 4111,
+    "time_sec": 13.351,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 263,
+    "time_sec": 3.534,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 316,
+    "time_sec": 4.089,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 292,
+    "time_sec": 3.811,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 49,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 139,
+    "time_sec": 1.886,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 20663,
+    "time_sec": 1.123,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 432,
+    "time_sec": 1.221,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1245,
+    "time_sec": 4.146,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 213,
+    "time_sec": 0.617,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 313,
+    "time_sec": 1.07,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1161,
+    "time_sec": 13.978,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 239,
+    "time_sec": 2.973,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 317,
+    "time_sec": 3.971,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 50,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 862,
+    "time_sec": 11.226,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 59.116,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 160690,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 111526,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 151235,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 107401,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 28015,
+    "time_sec": 360.01,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 28169,
+    "time_sec": 360.005,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 28128,
+    "time_sec": 360.012,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 51,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 28156,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 14372,
+    "time_sec": 0.938,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 396,
+    "time_sec": 1.043,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 164,
+    "time_sec": 0.539,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 124,
+    "time_sec": 0.395,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 363,
+    "time_sec": 1.276,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 846,
+    "time_sec": 10.655,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 843,
+    "time_sec": 10.88,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 871,
+    "time_sec": 11.225,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 52,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 411,
+    "time_sec": 5.51,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 60.579,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 156167,
+    "time_sec": 360.0,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 110874,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 115348,
+    "time_sec": 282.221,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 107751,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 28750,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 28666,
+    "time_sec": 360.01,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 28628,
+    "time_sec": 360.007,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 53,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 28729,
+    "time_sec": 360.014,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 140580,
+    "time_sec": 9.782,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 1226,
+    "time_sec": 3.257,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 269,
+    "time_sec": 0.902,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 274,
+    "time_sec": 0.832,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 1739,
+    "time_sec": 5.794,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 198,
+    "time_sec": 2.541,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 184,
+    "time_sec": 2.596,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 187,
+    "time_sec": 2.472,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 54,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 139,
+    "time_sec": 1.818,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 60.257,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 2660,
+    "time_sec": 6.889,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 3837,
+    "time_sec": 12.249,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 2469,
+    "time_sec": 6.622,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 19780,
+    "time_sec": 65.537,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1503,
+    "time_sec": 19.573,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 1639,
+    "time_sec": 20.801,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 1425,
+    "time_sec": 18.178,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 55,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 1532,
+    "time_sec": 19.949,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 68.701,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 143878,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 100388,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 137731,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 99145,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 27101,
+    "time_sec": 360.01,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 27021,
+    "time_sec": 360.007,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 26756,
+    "time_sec": 360.004,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 56,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 26990,
+    "time_sec": 360.005,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 358261,
+    "time_sec": 22.428,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 4241,
+    "time_sec": 11.915,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 2023,
+    "time_sec": 6.875,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 817,
+    "time_sec": 2.389,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 2954,
+    "time_sec": 9.994,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 275,
+    "time_sec": 3.706,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 233,
+    "time_sec": 3.12,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 268,
+    "time_sec": 3.698,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 57,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 272,
+    "time_sec": 3.688,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 17111,
+    "time_sec": 1.03,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 538,
+    "time_sec": 1.392,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 54,
+    "time_sec": 0.19,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 45,
+    "time_sec": 0.134,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 179,
+    "time_sec": 0.63,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 41,
+    "time_sec": 0.591,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 46,
+    "time_sec": 0.644,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 45,
+    "time_sec": 0.613,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 58,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 38,
+    "time_sec": 0.508,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 61.457,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 63665,
+    "time_sec": 155.823,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 16177,
+    "time_sec": 53.379,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 32102,
+    "time_sec": 82.348,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 101906,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 3968,
+    "time_sec": 48.288,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 3719,
+    "time_sec": 43.973,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 4210,
+    "time_sec": 50.838,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 59,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 1972,
+    "time_sec": 24.535,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 63.612,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 151735,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 59576,
+    "time_sec": 198.891,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 143098,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 101983,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 28190,
+    "time_sec": 360.004,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 27934,
+    "time_sec": 360.005,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 27825,
+    "time_sec": 360.012,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 60,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 27948,
+    "time_sec": 360.006,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 71.955,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 62134,
+    "time_sec": 164.625,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 6138,
+    "time_sec": 21.337,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 44060,
+    "time_sec": 122.491,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 94807,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 2435,
+    "time_sec": 31.301,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 2046,
+    "time_sec": 25.984,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 3097,
+    "time_sec": 39.141,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 61,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 2856,
+    "time_sec": 38.4,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 849178,
+    "time_sec": 50.154,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 4922,
+    "time_sec": 12.744,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1045,
+    "time_sec": 3.598,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 538,
+    "time_sec": 1.533,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 23202,
+    "time_sec": 79.29,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 915,
+    "time_sec": 12.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 611,
+    "time_sec": 7.934,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 976,
+    "time_sec": 12.638,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 62,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 648,
+    "time_sec": 8.519,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 64.159,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 144450,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 103849,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 140494,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 102262,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 27353,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 27558,
+    "time_sec": 360.009,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 27561,
+    "time_sec": 360.007,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 63,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 27456,
+    "time_sec": 360.006,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 64.772,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 66103,
+    "time_sec": 167.223,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 60836,
+    "time_sec": 205.389,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 8930,
+    "time_sec": 25.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 101591,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 24952,
+    "time_sec": 302.152,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 13645,
+    "time_sec": 170.537,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 19476,
+    "time_sec": 236.428,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 64,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 15794,
+    "time_sec": 192.492,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 71.881,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 17389,
+    "time_sec": 46.838,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 3397,
+    "time_sec": 11.694,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 8017,
+    "time_sec": 21.973,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 94772,
+    "time_sec": 360.004,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1173,
+    "time_sec": 14.855,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 971,
+    "time_sec": 12.677,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 891,
+    "time_sec": 11.665,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 65,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 929,
+    "time_sec": 12.628,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 72.209,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 140150,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 97876,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 132432,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 97081,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 26615,
+    "time_sec": 360.013,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 26748,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 26548,
+    "time_sec": 360.006,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 66,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 26399,
+    "time_sec": 360.01,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 307002,
+    "time_sec": 19.289,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 4196,
+    "time_sec": 11.361,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 670,
+    "time_sec": 2.389,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 2057,
+    "time_sec": 5.973,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 13040,
+    "time_sec": 45.31,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 341,
+    "time_sec": 4.656,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 490,
+    "time_sec": 6.484,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 520,
+    "time_sec": 7.048,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 67,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 306,
+    "time_sec": 4.249,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 71.316,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 42925,
+    "time_sec": 113.159,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 951,
+    "time_sec": 3.28,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 10993,
+    "time_sec": 31.499,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 25938,
+    "time_sec": 92.446,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 2276,
+    "time_sec": 29.972,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 4088,
+    "time_sec": 54.726,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 4434,
+    "time_sec": 58.404,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 68,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 972,
+    "time_sec": 12.69,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 323342,
+    "time_sec": 18.431,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 17713,
+    "time_sec": 42.87,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 13377,
+    "time_sec": 43.61,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 8191,
+    "time_sec": 21.402,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 8099,
+    "time_sec": 27.359,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 2362,
+    "time_sec": 29.59,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 3136,
+    "time_sec": 39.125,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 3054,
+    "time_sec": 38.034,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 69,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 1370,
+    "time_sec": 17.869,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 501253,
+    "time_sec": 36.412,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 1223,
+    "time_sec": 3.342,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 291,
+    "time_sec": 1.057,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 662,
+    "time_sec": 1.93,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 8211,
+    "time_sec": 28.783,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 357,
+    "time_sec": 4.611,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 252,
+    "time_sec": 3.288,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 329,
+    "time_sec": 4.489,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 70,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 360,
+    "time_sec": 4.548,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 60.988,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 23954,
+    "time_sec": 60.202,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 17785,
+    "time_sec": 59.891,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 9046,
+    "time_sec": 23.884,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 40944,
+    "time_sec": 138.25,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 15150,
+    "time_sec": 192.693,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 9088,
+    "time_sec": 115.877,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 18527,
+    "time_sec": 237.722,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 71,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 11998,
+    "time_sec": 157.014,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 92669,
+    "time_sec": 5.693,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 2012,
+    "time_sec": 4.919,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 275,
+    "time_sec": 0.89,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 568,
+    "time_sec": 1.586,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 3386,
+    "time_sec": 11.295,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 570,
+    "time_sec": 7.547,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 229,
+    "time_sec": 2.862,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 508,
+    "time_sec": 6.382,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 72,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 465,
+    "time_sec": 6.069,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 70.034,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 11992,
+    "time_sec": 31.589,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1246,
+    "time_sec": 4.435,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 1006,
+    "time_sec": 3.011,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 7238,
+    "time_sec": 25.254,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 782,
+    "time_sec": 10.56,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 898,
+    "time_sec": 12.074,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 872,
+    "time_sec": 11.788,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 73,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 452,
+    "time_sec": 5.979,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 61.532,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 27260,
+    "time_sec": 65.853,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1991,
+    "time_sec": 6.511,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 13212,
+    "time_sec": 34.973,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 14808,
+    "time_sec": 48.618,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 5159,
+    "time_sec": 66.939,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 2442,
+    "time_sec": 31.454,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 3453,
+    "time_sec": 44.622,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 74,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 2844,
+    "time_sec": 36.957,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 73.927,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 5911,
+    "time_sec": 16.73,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1212,
+    "time_sec": 4.362,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 538,
+    "time_sec": 1.71,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 20455,
+    "time_sec": 75.005,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1751,
+    "time_sec": 23.409,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 2112,
+    "time_sec": 27.868,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 1994,
+    "time_sec": 26.403,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 75,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 1045,
+    "time_sec": 14.405,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 66.854,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 140681,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 83247,
+    "time_sec": 302.3,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 59609,
+    "time_sec": 159.049,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 98174,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 13823,
+    "time_sec": 184.057,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 16736,
+    "time_sec": 217.918,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 16362,
+    "time_sec": 215.705,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 76,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 21780,
+    "time_sec": 292.734,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 14139,
+    "time_sec": 0.903,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 535,
+    "time_sec": 1.49,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 563,
+    "time_sec": 1.902,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 75,
+    "time_sec": 0.227,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 405,
+    "time_sec": 1.379,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 363,
+    "time_sec": 4.52,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 383,
+    "time_sec": 4.582,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 366,
+    "time_sec": 4.469,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 77,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 422,
+    "time_sec": 5.228,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 658892,
+    "time_sec": 40.092,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 6463,
+    "time_sec": 16.338,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 1912,
+    "time_sec": 6.289,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 608,
+    "time_sec": 1.707,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 11837,
+    "time_sec": 40.391,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 564,
+    "time_sec": 7.517,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 1849,
+    "time_sec": 24.252,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 669,
+    "time_sec": 8.998,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 78,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 538,
+    "time_sec": 6.866,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "classical_astar",
+    "solved": true,
+    "expansions": 477748,
+    "time_sec": 29.822,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 2279,
+    "time_sec": 5.87,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 455,
+    "time_sec": 1.553,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 1629,
+    "time_sec": 4.645,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 2963,
+    "time_sec": 10.036,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 807,
+    "time_sec": 10.133,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 918,
+    "time_sec": 11.145,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 293,
+    "time_sec": 3.864,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 79,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 269,
+    "time_sec": 3.512,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 62.364,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "paper_astar",
+    "solved": false,
+    "expansions": 151802,
+    "time_sec": 360.0,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "paper_mc_astar",
+    "solved": false,
+    "expansions": 107980,
+    "time_sec": 360.001,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "single_astar",
+    "solved": false,
+    "expansions": 144244,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "single_mc_astar",
+    "solved": false,
+    "expansions": 104046,
+    "time_sec": 360.002,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "ensemble_mean",
+    "solved": false,
+    "expansions": 28426,
+    "time_sec": 360.013,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "ensemble_conf_020",
+    "solved": false,
+    "expansions": 29050,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "ensemble_conf_050",
+    "solved": false,
+    "expansions": 28521,
+    "time_sec": 360.011,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 80,
+    "method": "ensemble_risk",
+    "solved": false,
+    "expansions": 28348,
+    "time_sec": 360.003,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 58.262,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 34555,
+    "time_sec": 78.512,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 6148,
+    "time_sec": 19.592,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 11494,
+    "time_sec": 28.72,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 95136,
+    "time_sec": 313.215,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 12078,
+    "time_sec": 151.408,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 5072,
+    "time_sec": 63.094,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 4562,
+    "time_sec": 57.994,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 81,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 8905,
+    "time_sec": 111.97,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "classical_astar",
+    "solved": false,
+    "expansions": 1000000,
+    "time_sec": 72.075,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "paper_astar",
+    "solved": true,
+    "expansions": 12305,
+    "time_sec": 32.813,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "paper_mc_astar",
+    "solved": true,
+    "expansions": 411,
+    "time_sec": 1.433,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "single_astar",
+    "solved": true,
+    "expansions": 732,
+    "time_sec": 2.287,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "single_mc_astar",
+    "solved": true,
+    "expansions": 4750,
+    "time_sec": 16.857,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "ensemble_mean",
+    "solved": true,
+    "expansions": 1142,
+    "time_sec": 15.279,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "ensemble_conf_020",
+    "solved": true,
+    "expansions": 474,
+    "time_sec": 6.275,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "ensemble_conf_050",
+    "solved": true,
+    "expansions": 537,
+    "time_sec": 6.815,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  },
+  {
+    "map_id": 82,
+    "method": "ensemble_risk",
+    "solved": true,
+    "expansions": 719,
+    "time_sec": 9.524,
+    "source": "completed live-log END record; raw plan/cost not yet exported"
+  }
+]

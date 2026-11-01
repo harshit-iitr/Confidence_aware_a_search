@@ -1,0 +1,12 @@
+method,algorithm,evaluated,solved,mean_expansions,median_expansions,p90_expansions,mean_cost,mean_time_solved_sec,mean_time_all_sec,mean_lambda
+classical_astar,Classical A* (Manhattan),0,0,,,,,,,
+paper_astar,Paper Learned A* (original repository checkpoint),0,0,,,,,,,
+paper_gbfs,Paper Learned GBFS (original repository checkpoint),0,0,,,,,,,
+paper_mc_astar,MC Confidence-Aware Hybrid A* (paper model),0,0,,,,,,,
+paper_mc_gbfs,MC Confidence-Aware Hybrid GBFS (paper model),0,0,,,,,,,
+single_astar,Single Scratch Model #0 A*,0,0,,,,,,,
+single_mc_astar,MC-Dropout on Scratch Model #0,0,0,,,,,,,
+ensemble_mean,Normal 5-Model Ensemble A*,0,0,,,,,,,
+ensemble_conf_020,Confidence-Aware Ensemble A* (lambda_min=0.20),0,0,,,,,,,
+ensemble_conf_050,Calibrated Confidence-Aware Ensemble A* (lambda_min=0.50),0,0,,,,,,,
+ensemble_risk,Risk-Averse Ensemble A* (kappa=1.0),0,0,,,,,,,

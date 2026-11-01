@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "protocol": "original-repository-7box-v1",
+  "kind": "7-box-test",
+  "dataset_sha256": "26335b858bf347c0a4226e2cd7fa779d6576433d18a0723d61079e6b50303a0f",
+  "provenance_sha256": "e8113d7e921521c82300d34e4bb04d8dc27d5fb8e82b2fb1ef91c81d4790d882",
+  "num_maps": 100,
+  "timeout_sec": 360.0,
+  "max_expansions": 1000000,
+  "base_seed": 42,
+  "method_order": [
+    "classical_astar",
+    "paper_astar",
+    "paper_gbfs",
+    "paper_mc_astar",
+    "paper_mc_gbfs",
+    "single_astar",
+    "single_mc_astar",
+    "ensemble_mean",
+    "ensemble_conf_020",
+    "ensemble_conf_050",
+    "ensemble_risk"
+  ],
+  "methods": {
+    "classical_astar": "Classical A* (Manhattan)",
+    "paper_astar": "Paper Learned A* (original repository checkpoint)",
+    "paper_gbfs": "Paper Learned GBFS (original repository checkpoint)",
+    "paper_mc_astar": "MC Confidence-Aware Hybrid A* (paper model)",
+    "paper_mc_gbfs": "MC Confidence-Aware Hybrid GBFS (paper model)",
+    "single_astar": "Single Scratch Model #0 A*",
+    "single_mc_astar": "MC-Dropout on Scratch Model #0",
+    "ensemble_mean": "Normal 5-Model Ensemble A*",
+    "ensemble_conf_020": "Confidence-Aware Ensemble A* (lambda_min=0.20)",
+    "ensemble_conf_050": "Calibrated Confidence-Aware Ensemble A* (lambda_min=0.50)",
+    "ensemble_risk": "Risk-Averse Ensemble A* (kappa=1.0)"
+  },
+  "parameters": {
+    "mc_samples": 5,
+    "dropout_p": 0.1,
+    "mc_lambda_min": 0.2,
+    "ensemble_lambda_min": [
+      0.2,
+      0.5
+    ],
+    "beta": 2.5,
+    "kappa": 1.0,
+    "C": 50.0,
+    "gating_mode": "std",
+    "uncertainty_space": "per-member online percentile",
+    "symbolic_deadlock_pruning": false
+  },
+  "checkpoints": {
+    "finalSok3_pytorch.pt": "076ff786026461279e6a68d114893c2916a4b322c807a358850d86a7978edb4a",
+    "checkpoints/ensemble/ensemble_model_0.pt": "c771e8552eb30d82171e22a9602ecef2f1c23a2b568e19384094a09f1c7edd3f",
+    "checkpoints/ensemble/ensemble_model_1.pt": "6ff0ffd33151426c7d204bfd463036b4cbadb4c3dfa46faf8e0dfad07d821457",
+    "checkpoints/ensemble/ensemble_model_2.pt": "4d2d13b827ba63d19ff37d250a54273ede08846eb9c3d5bf2ee2aaa1fbfc6132",
+    "checkpoints/ensemble/ensemble_model_3.pt": "e6bfdd80f87d9dab99b8b9f7122714aba6c105661351ae299adf004b62d58757",
+    "checkpoints/ensemble/ensemble_model_4.pt": "32aefb590d7b0673ce674cd98b8789237fa2b1adad0d5d74cadf9f4ef205598a"
+  },
+  "source_sha256": {
+    "benchmarks/sokoban7_protocol.py": "9d1184eff4073e8e0263eee81940ad079d03b9253628dfd3ec11518d154067f4",
+    "benchmarks/run_sokoban7_benchmark.py": "25c20beb13e5bd61585766daeaddd0e04dd6103aff9be1b40ec9d527db79d786",
+    "benchmarks/run_5box_benchmark.py": "386ad67dcd131eac1f83f4a754431d139360bb181bb29c10724602e54b73d5f0",
+    "benchmarks/run_ensemble_comparison_benchmark.py": "0f5d285cbfb0f61940f8c0e366288f151ae59b48d11518e755d39c1aef99085a",
+    "src/torch_model.py": "f52e81e0fd2469ef4f4261524b4258c3996496aa61230b9c3a0aa2c575dbdbc8",
+    "src/sokoban_env.py": "d8c1b735f7b843da2cc6845015da6c7ee09840827fb229505fadf4645ad9ffe3",
+    "src/classical_heuristics.py": "2f5c230988978b5e3868b7be689623d830f51cd16af9bd0bf95ebd056c3c376a",
+    "src/confidence_aware_search.py": "f2a275d4e6dd74703fccf1e056e2d69a5826adc8670bd4c24428bad7e4a5f56b",
+    "src/ensemble_search.py": "9fb686e543d245c3bbeef57bf2b1b35b0a721a22d3b30e927fd17fb8c471397e"
+  },
+  "runtime": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "numpy": "2.1.3",
+    "device": "cuda:0",
+    "torch_threads": 2,
+    "torch_interop_threads": 2,
+    "float32_matmul_precision": "highest",
+    "hardware": "CUDA (Tesla T4)",
+    "platform": "Linux-6.18.55+-x86_64-with-glibc2.39"
+  },
+  "notes": [
+    "Original checkpoint retained; not a verified paper reproduction.",
+    "Original search loops and expansion counters retained.",
+    "Budgets are checked at original loop boundaries; small overruns are possible.",
+    "Search time excludes wrapper construction; wall_time_sec includes dispatch setup.",
+    "No new training, conversion, goal anchoring, or symbolic pruning."
+  ]
+}

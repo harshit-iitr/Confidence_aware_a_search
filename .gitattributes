@@ -1,0 +1,3 @@
+# Preserve the frozen dataset byte-for-byte across Windows/Linux clones.
+data/sokoban_7box_original_test.txt -text
+data/sokoban_7box_original_test.provenance.json -text
